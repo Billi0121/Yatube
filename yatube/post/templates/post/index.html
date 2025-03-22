@@ -46,6 +46,7 @@
       <a  href="{% url 'user_about' %}">
         Страница so списком сортов мороженого
       </a>  
+      {{  text|linebreaks|truncatewords:4 }}
     </footer>
   </body>
 </html>
