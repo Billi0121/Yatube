@@ -1,5 +1,5 @@
 from django.contrib import admin
-from posts.models import post, group
+from posts.models import Post, group
 
 # Register your models here.
 class Post_table(admin.ModelAdmin):
@@ -16,4 +16,4 @@ class Post_table(admin.ModelAdmin):
     empty_value_display = '-пусто-' 
 
 admin.site.register(group)
-admin.site.register(post, Post_table)
+admin.site.register(Post, Post_table)

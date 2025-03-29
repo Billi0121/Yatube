@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from posts.models import post
+from posts.models import Post
 
 def index(request):
     posts = post.objects.order_by('-pub_date')[:10]
