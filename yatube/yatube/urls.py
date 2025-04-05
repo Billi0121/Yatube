@@ -22,8 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
     path('group/<slug>/', views.group_post, name = 'user_about'),
+     path('auth/', include('users.urls', namespace='users')),
     path('group/', views.group, name = 'group'),
     path('auth/', include('django.contrib.auth.urls')),
-    path('users/', include('users.urls', namespace='users'))
     ]
 
