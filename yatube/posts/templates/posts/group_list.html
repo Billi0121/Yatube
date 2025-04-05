@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html> <!-- Используется html 5 версии -->
+<html lang="ru"> <!-- Язык сайта - русский -->
+  <head>    
+    <meta charset="utf-8"> <!-- Кодировка сайта -->
+    <!-- Сайт готов работать с мобильными устройствами -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Загружаем фав-иконки -->
+    <link rel="icon" href="img/fav/fav.ico" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/fav/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Подключен файл со стандартными стилями бустрап -->
+    <!-- <title>Записи сообщества Лев Толстой – зеркало русской революции.</title> -->
+    <title>{{ title }}</title>
+    <link text ="text/css" href ="{% static 'posts/css/bootstrap.min.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <!-- Использованы классы бустрапа для создания типовой навигации с логотипом -->
+      <!-- В дальнейшем тут будет создано полноценное меню -->    
+      <nav class="navbar navbar-light" style="background-color: lightskyblue">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">
+            <img src="{% static 'posts/img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+            <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
+            <span style="color:red">Ya</span>tube</a>
+          </a>
+        </div>
+      </nav>      
+    </header>
+    <main>
+      <div class="container">
+        <ul>
+        </article>  
+          {% for post in posts %}
+            <ul>
+              <li>
+                {{ post.author.get_full_name }}
+              </li>
+              <li>
+                {{ post.pub_date|date:"d E Y" }}
+              </li>
+            </ul>
+            <ul>
+              <li>
+                {{ post.text }}
+              </li>
+            </ul>
+            <a href="{% url 'index' %}">все записи группы</a>
+            {% if not forloop.last %}<hr>{% endif %}
+          {% endfor %}
+        </article>
+        <hr>
+        <article>
+          
+        </article>
+        <!-- под последним постом нет линии -->
+      </div>  
+    </main>
+    <footer class="page-footer font-small blue border-top">
+      <div class="footer-copyright text-center py-3">© 2020 Copyright 
+        <p><span style="color:red">Ya</span>tube</p> 
+      </div>    
+    </footer>
+  </body>
