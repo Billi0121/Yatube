@@ -25,5 +25,6 @@ urlpatterns = [
      path('auth/', include('users.urls', namespace='users')),
     path('group/', views.group, name = 'group'),
     path('auth/', include('django.contrib.auth.urls')),
+    path('new_book/', views.BookView.as_view(), name='new_book')
     ]
 

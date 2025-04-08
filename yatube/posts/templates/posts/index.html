@@ -49,6 +49,7 @@
               </ul>
               <p>{{ post.text }}</p>    
               {% if not forloop.last %}<hr>{% endif %}
+              {{ form.as_p }}
             {% endfor %} 
           </article>
       </div>  

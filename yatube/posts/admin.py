@@ -1,5 +1,5 @@
 from django.contrib import admin
-from posts.models import Post, group
+from posts.models import Post, group, Book
 
 # Register your models here.
 class Post_table(admin.ModelAdmin):
@@ -15,5 +15,13 @@ class Post_table(admin.ModelAdmin):
     list_filter = ('pub_date',)
     empty_value_display = '-пусто-' 
 
+class Book_table(admin.ModelAdmin):
+    list_display= (
+        'name',
+        'isbn',
+    )
+    list_filter = ('name',)
+
+admin.site.register(Book, Book_table)
 admin.site.register(group)
 admin.site.register(Post, Post_table)

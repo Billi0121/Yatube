@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
+from django.views.generic.edit import CreateView
+from .forms import BookForm
 
 
 def index(request):
@@ -41,4 +43,9 @@ def group_post(request, slug):
     }
     return render(request, 'posts/group_list.html', context)
 
+
+class BookView(CreateView): 
+    form_class = BookForm    
+    template_name = 'posts/books.html'  
+    success_url = '/thankyou/' 
 

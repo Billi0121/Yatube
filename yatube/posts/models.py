@@ -27,4 +27,9 @@ class group(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.title
+        return self
+        
+class Book(models.Model):
+    name = models.CharField(max_length=100)
+    isbn = models.CharField(max_length=100)
+    pages = models.IntegerField()
