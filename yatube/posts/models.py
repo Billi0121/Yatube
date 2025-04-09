@@ -27,7 +27,7 @@ class group(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self
+        return self.title
         
 class Book(models.Model):
     name = models.CharField(max_length=100)

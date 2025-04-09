@@ -24,7 +24,7 @@ urlpatterns = [
     path('group/<slug>/', views.group_post, name = 'user_about'),
      path('auth/', include('users.urls', namespace='users')),
     path('group/', views.group, name = 'group'),
-    path('auth/', include('django.contrib.auth.urls')),
-    path('new_book/', views.BookView.as_view(), name='new_book')
+    # path('auth/', include('django.contrib.auth.urls')),
+    path('new_book/', views.BookView.as_view(), name='new_book'),
     ]
 
