@@ -11,10 +11,8 @@ urlpatterns = [
       name='login'
     ),
     path(
-      'signup/',
-      LoginView.as_view(template_name='users/signup.html'),
-      name='signup'
-    ),
+        'signup/', views.SignUp.as_view(), name='signup'
+        ),  
     path(
       'logout/',
       LoginView.as_view(template_name='users/logged_out.html'),

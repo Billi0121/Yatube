@@ -13,13 +13,13 @@ def index(request):
     }
     return render(request, 'posts/index.html', context)
 
-# def group(request):
-#     title = 'Empty'
-#     post_objects = Post.objects.all()
-#     context = {
-#         'title': title,
-#     }
-#     return render(request, 'posts/group.html', context)
+def groupe(request):
+    title = 'Empty'
+    post_objects = Post.objects.all()
+    context = {
+        'title': title,
+    }
+    return render(request, 'posts/groupe.html', context)
 
 def indexx(request):
     author = User.objects.get(username='leo')
@@ -33,6 +33,8 @@ def indexx(request):
     }
     return render(request, 'posts/index.html', context)
 
+def thankyou(request):
+    return render(request, 'posts/thankyou.html')
 
 class BookView(CreateView): 
     form_class = BookForm    
@@ -43,6 +45,7 @@ def group_post(request, slug):
     Group = get_object_or_404(group, slug=slug)
     posts = Post.objects.filter(group=Group).order_by('-pub_date')[:10]
     context = {
+        'slug': slug,
         'Group': group,
         'posts': posts,
     }

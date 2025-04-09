@@ -22,6 +22,7 @@ class Book_table(admin.ModelAdmin):
         'isbn',
     )
     list_filter = ('name',)
+    empty_value_display = '-пусто-'
 
 admin.site.register(Users)
 admin.site.register(Book, Book_table)

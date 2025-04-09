@@ -23,7 +23,7 @@
       <nav class="navbar navbar-light" style="background-color: lightskyblue">
         <div class="container">
           <a class="navbar-brand" href="index.html">
-            <img src="{% static 'posts/img/logo.png' %}" %} width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{% static 'posts/img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
             <span style="color:red">Ya</span>tube</a>
           </a>
@@ -32,34 +32,10 @@
     </header>
     <main>
       <div class="shablons">
-        <a href="{% url 'group' %}">For Looking All posts</a>
-      </div>
-      <div class="container">
-        <h1>Последние обновления на сайте</h1>
-        <article>
-          <ul>
-            </form> 
-            {% for post in postt %}
-              <ul>
-                <li>
-                  Автор: {{ post.author.get_full_name }}
-                </li>
-                <li>
-                  Дата публикации: {{ post.pub_date|date:"d E Y" }}
-                </li>
-              </ul>
-              <p>{{ post.text }}</p>    
-              {% if not forloop.last %}<hr>{% endif %}
-              {{ form.as_p }}
-            {% endfor %} 
-          </article>
-      </div>  
-    </main>
-    <!-- Использованы классы бустрапа: -->
-    <!-- border-top: создаёт тонкую линию сверху блока -->
-    <!-- text-center: выравнивает текстовые блоки внутри блока по центру -->
-    <!-- py-3: контент внутри размещается с отступом сверху и снизу -->         
+                    
     <footer class="border-top text-center py-3">
+        <h1>SUCESSFUL REGISTERED</h1>
+        <a href="{% url 'index' %}">For Looking <strong>YATUBE</strong> Menu</a>
       <!-- тег span используется для добавления нужных стилей отдельным участкам текста --> 
       <p>© 2020 Copyright <span style="color:red">Ya</span>tube</p>    
     </footer>
