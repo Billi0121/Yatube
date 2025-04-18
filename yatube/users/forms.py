@@ -1,15 +1,25 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
-
-
+from .models import *
+from django import forms
+ 
 User = get_user_model()
 
 
-#  создадим собственный класс для формы регистрации
-#  сделаем его наследником предустановленного класса UserCreationForm
-class CreationForm(UserCreationForm):
+
+
+class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        # укажем модель, с которой связана создаваемая форма
+        email = forms.CharField(max_length=30)
+        first_name = forms.CharField(max_length=30)
+        last_name = forms.CharField(max_length=30)
         model = User
-        # укажем, какие поля должны быть видны в форме и в каком порядке
-        fields = ('first_name', 'last_name', 'username', 'email') 
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2',]
+        email = forms.CharField(max_length=30)
+
+class Password_change_form():
+    class Meta():
+        old_password = forms.CharField(max_length=30)
+        new_password1 = forms.CharField(max_length=30)
+        new_password2 = forms.CharField(max_length=30)
+        fields = ['old_password', 'new_password1', 'new_password2']

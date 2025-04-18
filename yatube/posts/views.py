@@ -49,4 +49,4 @@ def group_post(request, slug):
         'Group': group,
         'posts': posts,
     }
-    return render(request, 'posts/group_list.html', context)
+    return render(request, 'posts/group_list.html', context)    

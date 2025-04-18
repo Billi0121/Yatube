@@ -18,14 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from posts import views
 
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
     path('group/<slug>/', views.group_post, name = 'user_about'),
      path('auth/', include('users.urls', namespace='users')),
-    path('groupe/', views.groupe, name = 'group'),
+    path('groupe/', views.groupe, name = 'group_list'),
     # path('auth/', include('django.contrib.auth.urls')),
     path('new_book/', views.BookView.as_view(), name='new_book'),
     path('thankyou/', views.thankyou, name='thankyou')
