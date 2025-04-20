@@ -57,3 +57,70 @@ footer {
     align-items: center;
     justify-content: space-between;
 }
+
+
+.main-content {
+    display: flex;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+/* Сайдбар категорий */
+.categories {
+    width: 220px;
+    background: linear-gradient(to bottom right, #444, #222);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 20px;
+    height: fit-content;
+    animation: fadeInLeft 1s ease;
+}
+
+.categories h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid crimson;
+    padding-bottom: 5px;
+}
+
+.categories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories li {
+    margin: 10px 0;
+}
+
+.categories a {
+    color: #ffce00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.categories a:hover {
+    color: crimson;
+    text-shadow: 0 0 10px crimson;
+}
+
+/* Анимация появления */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Контент справа */
+.page-content {
+    flex: 1;
+}

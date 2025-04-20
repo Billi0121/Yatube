@@ -4,13 +4,17 @@ from django.contrib.auth.models import User
 import datetime
 from django.views.generic.edit import CreateView
 from .forms import BookForm
+from django.core.paginator import Paginator
 
 
 def index(request):
     posts = Post.objects.all()
-    Users = User.objects.all()
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'postt': posts,
+        'page_obj': page_obj
+        # 'postt': posts,
     }
     return render(request, 'posts/index.html', context,)
 
@@ -50,4 +54,4 @@ def group_post(request, slug):
         'Group': group,
         'posts': posts,
     }
-    return render(request, 'posts/group_list.html', context)    
+    return render(request, 'posts/group_post.html', context)    

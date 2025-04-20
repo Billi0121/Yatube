@@ -24,4 +24,6 @@ class SignUpView(CreateView):
 
 
 
-
+def test(requst, slug):
+    Group = get_user_or_404(group, slug=slug)
+    Post = Post.objects.filter(group=Group).order_by('-pub_date')[:10]

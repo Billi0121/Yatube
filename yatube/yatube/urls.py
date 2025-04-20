@@ -21,7 +21,7 @@ from posts import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
-    path('group/<slug>/', views.group_post, name = 'user_about'),
+    path('group/<slug>/', views.group_post, name = 'group_post'),
      path('auth/', include('users.urls', namespace='users')),
     path('groupe/', views.groupe, name = 'group_list'),
     # path('auth/', include('django.contrib.auth.urls')),
