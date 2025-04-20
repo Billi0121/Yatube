@@ -8,10 +8,11 @@ from .forms import BookForm
 
 def index(request):
     posts = Post.objects.all()
+    Users = User.objects.all()
     context = {
         'postt': posts,
     }
-    return render(request, 'posts/index.html', context)
+    return render(request, 'posts/index.html', context,)
 
 def groupe(request):
     title = 'Empty'
