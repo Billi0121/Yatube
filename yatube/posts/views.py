@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
@@ -8,15 +8,18 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    posts = Post.objects.all()
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {
-        'page_obj': page_obj
-        # 'postt': posts,
-    }
-    return render(request, 'posts/index.html', context,)
+    if not request.user.is_authenticated:
+        return redirect('/auth/login/')
+    else:
+        posts = Post.objects.all()
+        paginator = Paginator(posts, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'page_obj': page_obj
+            # 'postt': posts,
+        }
+        return render(request, 'posts/index.html', context,)
 
 def groupe(request):
     title = 'Empty'
