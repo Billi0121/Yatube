@@ -22,8 +22,3 @@ class SignUpView(CreateView):
         template_name = 'users/signup.html'
         success_url = reverse_lazy('thankyou')
 
-
-
-def test(requst, slug):
-    Group = get_user_or_404(group, slug=slug)
-    Post = Post.objects.filter(group=Group).order_by('-pub_date')[:10]
