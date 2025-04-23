@@ -3,24 +3,31 @@ from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
 from django.views.generic.edit import CreateView
-from .forms import BookForm
+from .forms import *
 from django.core.paginator import Paginator
+from django.shortcuts import redirect
 
 
+def authorized_only(func):
+    def check_user(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return func(request, *args, **kwargs)
+        return redirect('/auth/login/')        
+    return check_user
+
+@authorized_only
 def index(request):
-    if not request.user.is_authenticated:
-        return redirect('/auth/login/')
-    else:
         posts = Post.objects.all()
         paginator = Paginator(posts, 5)
         page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+        page_obj = paginator.get_page(page_number)  
         context = {
             'page_obj': page_obj
             # 'postt': posts,
         }
         return render(request, 'posts/index.html', context,)
 
+@authorized_only
 def groupe(request):
     title = 'Empty'
     post_objects = Post.objects.all()
@@ -29,6 +36,7 @@ def groupe(request):
     }
     return render(request, 'posts/groupe.html', context)
 
+@authorized_only
 def indexx(request):
     author = User.objects.get(username='leo')
     keywoard = 'утро'
@@ -41,6 +49,7 @@ def indexx(request):
     }
     return render(request, 'posts/index.html', context)
 
+@authorized_only
 def thankyou(request):
     return render(request, 'posts/thankyou.html')
 
@@ -49,6 +58,7 @@ class BookView(CreateView):
     template_name = 'posts/books.html'  
     success_url = '/thankyou/' 
 
+@authorized_only
 def group_post(request, slug):
     Group = get_object_or_404(group, slug=slug)
     posts = Post.objects.filter(group=Group).order_by('-pub_date')

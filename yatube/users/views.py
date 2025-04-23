@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import *
-from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
 
 
 def admin_detail(request):
