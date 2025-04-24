@@ -8,11 +8,11 @@
 <body>  
     <form method="post" action="/new_book/">
         <p><label for="id_name">name:</label>
-           <input id="id_name" type="text" name="name" maxlength="200" required></p>
-        <p><label for="id_isbn">isbn:</label>
+           <input id="id_name" type="text" name="name" required></p>
+        {% comment %} <p><label for="id_isbn">isbn:</label>
            <input id="id_isbn" type="text" name="isbn" maxlength="100" required></p>
         <p><label for="id_pages">pages:</label>
-           <input id="id_pages" type="number" name="pages" required></p>
+           <input id="id_pages" type="number" name="pages" required></p> {% endcomment %}
            {% csrf_token %}
         <input type="submit" value="Отправить">
       </form> 

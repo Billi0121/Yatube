@@ -3,9 +3,10 @@ from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
 from django.views.generic.edit import CreateView
-from .forms import *
+from .forms import BookForm
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
+from django.db.models import Max, Min, Count
 
 
 def authorized_only(func):
@@ -20,9 +21,9 @@ def index(request):
         posts = Post.objects.all()
         paginator = Paginator(posts, 5)
         page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)  
+        page_obj = paginator.get_page(page_number)
         context = {
-            'page_obj': page_obj
+            'page_obj': page_obj,
             # 'postt': posts,
         }
         return render(request, 'posts/index.html', context,)
@@ -62,6 +63,7 @@ class BookView(CreateView):
 def group_post(request, slug):
     Group = get_object_or_404(group, slug=slug)
     posts = Post.objects.filter(group=Group).order_by('-pub_date')
+    count_posts_it = posts.count()
     paginator = Paginator(posts, 5)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -69,6 +71,15 @@ def group_post(request, slug):
         'slug': slug,
         'Group': group,
         # 'posts': posts,
-        'obj': page_obj
+        'obj': page_obj,
+        'count_posts_it': count_posts_it
     }
     return render(request, 'posts/group_post.html', context)    
+
+def test(request):
+    ...
+    # Создаём объект формы
+    form = ContactForm()
+
+    # И в словаре контекста передаём эту форму в HTML-шаблон
+    return render(request, 'users/contact.html', {'form': form}) 

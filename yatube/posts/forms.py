@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book
+from .models import *
 
 class BookForm(forms.ModelForm):
     class Meta:
@@ -12,3 +12,10 @@ class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
     body = forms.CharField(widget=forms.Textarea)
     is_answered = forms.BooleanField()
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        # На основе какой модели создаётся класс формы
+        model = Contact
+        # Укажем, какие поля будут в форме
+        fields = ('name', 'email', 'subject', 'body') 
