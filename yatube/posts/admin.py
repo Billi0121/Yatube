@@ -1,5 +1,5 @@
 from django.contrib import admin
-from posts.models import Post, group, Book
+from posts.models import *
 from users.models import Users
 
 # Register your models here.
@@ -24,6 +24,7 @@ class Book_table(admin.ModelAdmin):
     list_filter = ('name',)
     empty_value_display = '-пусто-'
 
+admin.site.register(Contact)
 admin.site.register(Users)
 admin.site.register(Book, Book_table)
 admin.site.register(group)

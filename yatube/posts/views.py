@@ -77,9 +77,8 @@ def group_post(request, slug):
     return render(request, 'posts/group_post.html', context)    
 
 def test(request):
-    ...
     # Создаём объект формы
     form = ContactForm()
 
     # И в словаре контекста передаём эту форму в HTML-шаблон
-    return render(request, 'users/contact.html', {'form': form}) 
+    return render(request, 'users/test.html', {'form': form}) 

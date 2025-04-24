@@ -6,16 +6,14 @@ class BookForm(forms.ModelForm):
         model = Book
         fields = ('name', 'isbn', 'pages') 
 
-class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    subject = forms.CharField(max_length=100)
-    body = forms.CharField(widget=forms.Textarea)
-    is_answered = forms.BooleanField()
+# class ContactForm(forms.Form):
+#     name = forms.CharField(max_length=100)
+#     email = forms.EmailField()
+#     subject = forms.CharField(max_length=100)
+#     body = forms.CharField(widget=forms.Textarea)
+#     is_answered = forms.BooleanField()
 
 class ContactForm(forms.ModelForm):
     class Meta:
-        # На основе какой модели создаётся класс формы
         model = Contact
-        # Укажем, какие поля будут в форме
-        fields = ('name', 'email', 'subject', 'body') 
+        fields = ['name', 'email', 'subject', 'body', 'is_answered']
