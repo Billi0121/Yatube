@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BilliBi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body class="bg-gray-50">
+  <header class="px-4 py-2 flex items-center justify-between border-b bg-white">
+    <div class="flex items-center gap-2">
+      <button id="menuToggle" class="cursor-pointer text-xl block md:hidden">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="{% url 'index' %}"><h1 class="text-xl"><span class="text-red-400 font-bold">Billi</span>Bi</h1></a>
+    </div>
+
+    <div class="flex items-center gap-2 text-sm">
+      {% if user.is_authenticated %}
+        <a href="{% url 'users:password_change_form' %}">Change Password</a>
+      {% else %}
+        <a href="{% url 'users:login' %}">Login</a>
+        <a href="{% url 'users:signup' %}" class="bg-red-600 px-2 py-1 text-white rounded-lg">Sign up</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="px-2 py-2 flex-col gap-2 text-center text-lg border-r w-64 h-screen bg-white hidden md:flex">
+      <h1 class="text-xl text-left font-bold mb-4">Navigation</h1>
+      <div class="flex flex-col gap-2.5">
+        <a href="{% url 'index' %}" class="flex items-center gap-1.5 text-sm hover:text-red-500"><i class="fa-solid fa-home"></i>Home</a>
+        <a href="#" class="flex items-center gap-1.5 text-sm hover:text-red-500"><i class="fa-solid fa-fire"></i> Popular</a>
+      </div>
+
+      <h1 class="text-xl text-left font-bold mb-4 mt-6">Tags</h1>
+      <div class="flex flex-col gap-2.5">
+        <a href="{% url 'group_post' slug='IT' %}" class="transition-all duration-300 px-2 py-1 rounded-sm hover:bg-gray-100 text-left text-sm">IT - Programming {{ count_posts_it }}</a>
+        <a href="{% url 'group_post' slug='Sport' %}" class="transition-all duration-300 px-2 py-1 rounded-sm hover:bg-gray-100 text-left text-sm">Football {{ count_posts_it }}</a>
+        <a href="#" class="transition-all duration-300 px-2 py-1 rounded-sm hover:bg-gray-100 text-left text-sm">Cooking</a>
+      </div>
+    </aside>
+
+    <main class="grow p-4">
+      <div class = Me>
+      <img src="{% static 'about/img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+      Gafarov Bilol
+
+      Social Networks
+      <br>
+      <a href="https://github.com/Billi0121">Github</a>
+      <a href="https://t.me/bilolj182">Telegram</a>
+      <a href="https://Instagram.com/_.gafarov._1">Instagram</a>
+
+      Little About Me
+      <br>
+      Hello Everyone Me name is Bilol Gafarov.I'm student at School N55 adn i am biginner in<strong>BACKEND Programming</strong>I'm 16 year old and i am from Tajikistan.Everything that i want that to create someting that i rule big programs like Instagram Youtube and else.I live in beautiful countrie.I took this way because i love everything what is connected with techology, i love being in the creating something new and interesting.I am big fan of Programming.The think whats inspire me it's the creater of big programs.One of them Marck Chukerberg I wathced his film Social Networks and it was amazing how it was and the one of the other think is whats inspire me its the TikTok edits with them i used to watch TikTok and the edit with Them was delicious.I know the technologies going better every day but i'm trying be better to.About how technologies You can see what I think clink <a href="">here</a>
+      </div>
+  <a href="{% url 'post_create' %}" 
+  class="fixed bottom-6 right-6 bg-gradient-to-r from-red-400 to-pink-500 hover:from-red-500 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-2xl text-lg flex items-center gap-2 transition-all duration-300">
+  <i class="fa-solid fa-plus"></i> Пость
+  </a>
+</body>
+</html>

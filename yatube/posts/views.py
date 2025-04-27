@@ -3,10 +3,10 @@ from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
 from django.views.generic.edit import CreateView
-from .forms import BookForm
+from .forms import *
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
-from django.db.models import Max, Min, Count
+from django.db.models import *
 
 
 def authorized_only(func):
@@ -82,3 +82,10 @@ def test(request):
 
     # И в словаре контекста передаём эту форму в HTML-шаблон
     return render(request, 'users/test.html', {'form': form}) 
+
+
+class postview(CreateView):
+    form_class = PostForm
+    form = PostForm
+    template_name = 'posts/post.html'
+    success_url = '/thankyou/'

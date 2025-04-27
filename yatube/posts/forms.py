@@ -17,3 +17,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ['name', 'email', 'subject', 'body', 'is_answered']
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['text', 'author', 'group']
