@@ -45,20 +45,39 @@
     </aside>
 
     <main class="grow p-4">
-      <div class = Me>
-      <img src="{% static 'about/img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-      Gafarov Bilol
-
-      Social Networks
-      <br>
-      <a href="https://github.com/Billi0121">Github</a>
-      <a href="https://t.me/bilolj182">Telegram</a>
-      <a href="https://Instagram.com/_.gafarov._1">Instagram</a>
-
-      Little About Me
-      <br>
-      Hello Everyone Me name is Bilol Gafarov.I'm student at School N55 adn i am biginner in<strong>BACKEND Programming</strong>I'm 16 year old and i am from Tajikistan.Everything that i want that to create someting that i rule big programs like Instagram Youtube and else.I live in beautiful countrie.I took this way because i love everything what is connected with techology, i love being in the creating something new and interesting.I am big fan of Programming.The think whats inspire me it's the creater of big programs.One of them Marck Chukerberg I wathced his film Social Networks and it was amazing how it was and the one of the other think is whats inspire me its the TikTok edits with them i used to watch TikTok and the edit with Them was delicious.I know the technologies going better every day but i'm trying be better to.About how technologies You can see what I think clink <a href="">here</a>
+      <div class="Me bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto text-gray-800 space-y-6">
+        <img src="{% static 'about/img/logo.png' %}" width="120" height="120" class="rounded-full mx-auto shadow-md" alt="">
+        <h2 class="text-3xl font-bold text-center">Gafarov Bilol</h2>
+      
+        <div class="text-center space-y-3">
+          <p class="text-lg font-semibold text-gray-600">Social Networks</p>
+          <div class="flex justify-center gap-6 text-xl">
+            <a href="https://github.com/Billi0121" class="text-gray-800 hover:text-black flex items-center gap-1">
+              <i class="fa-brands fa-github"></i> Github
+            </a>
+            <a href="https://t.me/bilolj182" class="text-blue-500 hover:text-blue-600 flex items-center gap-1">
+              <i class="fa-brands fa-telegram"></i> Telegram
+            </a>
+            <a href="https://Instagram.com/_.gafarov._1" class="text-pink-500 hover:text-pink-600 flex items-center gap-1">
+              <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+          </div>
+        </div>
+      
+        <div class="text-center">
+          <p class="text-lg font-semibold text-gray-700 mb-2">Little About Me</p>
+          <p class="text-base leading-relaxed text-justify indent-8">
+            <span class="text-3xl font-bold float-left mr-2">H</span>ello Everyone, my name is Bilol Gafarov. I'm a student at School N55 and a beginner in <strong>BACKEND Programming</strong>. I'm 16 years old and from Tajikistan.
+            <br><br>
+            I dream about creating something huge, like Instagram or YouTube. I live in a beautiful country. I chose this path because I love everything related to technology — building, inventing, creating.
+            <br><br>
+            Programming is my passion. People like Mark Zuckerberg inspire me. Watching the film "The Social Network" showed me how powerful one idea can become! Also, TikTok edits inspired me too.
+            <br><br>
+            Every day technology moves forward — and so do I. To see more about my thoughts on technology, click <a href="#" class="text-red-400 underline hover:text-red-500">here</a>.
+          </p>
+        </div>
       </div>
+      
   <a href="{% url 'post_create' %}" 
   class="fixed bottom-6 right-6 bg-gradient-to-r from-red-400 to-pink-500 hover:from-red-500 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-2xl text-lg flex items-center gap-2 transition-all duration-300">
   <i class="fa-solid fa-plus"></i> Пость
