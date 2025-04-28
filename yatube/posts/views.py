@@ -10,11 +10,12 @@ from django.db.models import *
 
 
 def authorized_only(func):
-    def check_user(request, *args, **kwargs):
+    def check_user(request, *args, **kwargs,):
         if request.user.is_authenticated:
             return func(request, *args, **kwargs)
         return redirect('/auth/login/')        
     return check_user
+
 
 @authorized_only
 def index(request):
@@ -86,6 +87,24 @@ def test(request):
 
 class postview(CreateView):
     form_class = PostForm
-    form = PostForm
     template_name = 'posts/post.html'
     success_url = '/thankyou/'
+
+# def postview(request):
+#     form = PostForm()
+#     form_class = PostForm
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'posts/post.html', context)
+
+def test(request):
+    return render(request, 'posts/test.html')
+
+@authorized_only
+def user_profile(request, username):
+    user_name = get_object_or_404(User, username=username)
+    context = {
+        'user_name': user_name
+    }
+    return render(request, 'posts/user_profile.html', context)

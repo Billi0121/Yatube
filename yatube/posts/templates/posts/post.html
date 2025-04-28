@@ -1,7 +1,9 @@
 {% extends "posts/base.html" %}
 
 {% block content %}
-<form method="POST" actiont='/post_create/'>
+<form method="post" actiont='/post_create/'>
     {% csrf_token %}
-    {% form.as_p %} 
+    {{ form.as_p }}
+    <button value="Sumbmit">Sumbmit</button>
+</form>
 {% endblock %}

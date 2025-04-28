@@ -2,18 +2,11 @@ from posts.models import *
 from django.shortcuts import get_object_or_404
 from django.db.models import Max, Min, Sum, Count
 
-def group_post(request, slug):
-    Group = get_object_or_404(group, slug=slug)
-    posts = Post.objects.filter(group=Group).order_by('-pub_date')
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+def user_profile(request, username):
+    user_name = get_object_or_404(User, username=username)
     context = {
-        'slug': slug,
-        'Group': group,
-        # 'posts': posts,
-        'obj': page_obj,
+        'user_name': user_name
     }
-    return render(request, 'posts/group_post.html', context)    
+    return render(request, 'posts/user_profile.html', context)
    
     
