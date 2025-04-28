@@ -29,5 +29,6 @@ urlpatterns = [
     path('thankyou/', views.thankyou, name='thankyou'),
     path('post_create/', views.postview.as_view(), name='post_create'),
     path('about/', include('about.urls', namespace='about')),
+    path('test/', views.test, name='test'),
     ]
 
