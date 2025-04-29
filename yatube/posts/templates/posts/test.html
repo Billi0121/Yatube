@@ -1,6 +1,10 @@
-<form method="post" action='test.html'>
-    {{ form.as_p }}
+{% extends "posts/base.html" %}
+
+{% block content %}
+<form method="post" action='/thankyou/'>
     {% csrf_token %}
-    hello bozo
-    <input type="submit" value="send">
-</form>
+    {{ form.as_p }}
+    <button value="Sumbmit">Sumbmit
+    </button>
+</form> 
+{% endblock %}

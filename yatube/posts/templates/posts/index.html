@@ -18,7 +18,7 @@
     </div>
 
     <div class="flex items-center gap-2 text-sm">
-        Author {{ user_name }}
+      Author {{ user_name }}
         <a href="{% url 'users:password_change_form' %}">Change Password</a>
     </div>
   </header>
@@ -48,6 +48,7 @@
             <span class="text-gray-500 text-sm">{{ post.pub_date }}</span>
           </div>
           <p class="text-gray-800">{{ post.text }}</p>
+          <a href="{{ post.id }}/edit/">Edit post</a>
         </article>
       {% empty %}
         <p>No posts available.</p>

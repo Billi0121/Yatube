@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
 from .forms import *
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.db.models import *
+from django.urls import reverse_lazy
 
 
 def authorized_only(func):
@@ -29,6 +30,12 @@ def index(request):
             # 'postt': posts,
         }
         return render(request, 'posts/index.html', context,)
+
+class EditView(UpdateView):
+    form = PostForm
+    model = Post
+    template_name = 'posts/edit.html'
+    success_url = reverse_lazy('/thankyou/')
 
 @authorized_only
 def groupe(request):
@@ -78,35 +85,30 @@ def group_post(request, slug):
     }
     return render(request, 'posts/group_post.html', context)    
 
-def test(request):
-    # Создаём объект формы
-    form = ContactForm()
-
-    # И в словаре контекста передаём эту форму в HTML-шаблон
-    return render(request, 'users/test.html', {'form': form}) 
+def test(request, pk):
+    post = Post.objects.get(pk=3)
+    form = PostForm(instance=post)
+    model = Post
+    return render(request, 'posts/test.html', {'form': form})
 
 
 class postview(CreateView):
     form_class = PostForm
     template_name = 'posts/post.html'
-    success_url = '/thankyou/'
+    success_url = reverse_lazy('index')
 
-# def postview(request):
-#     form = PostForm()
-#     form_class = PostForm
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'posts/post.html', context)
+class editview(UpdateView): 
+   form = PostForm
+   model = Post
+   fields = ['text', 'group']
+   template_name = 'posts/post.html'
+   success_url = reverse_lazy('index')
 
-class test(CreateView):
-    contact = Post.objects.get(pk=4)
-    form_class = PostForm(instance=contact)
-    template_name = 'posts/test.html'
-
-#    def get_context_data(self, **kwargs):
-#         context = super().get_context_data(self)
-#         context.['list'] = 'There is nothing new'
+# def editview(request, pk):
+#     posts_pk = Post.objects.get(pk=pk)
+#     form = PostForm(instance=posts_pk)
+#     model = Post
+#     return render(request, 'posts/post.html', {'form': form})
 
 @authorized_only
 def user_profile(request, username):
