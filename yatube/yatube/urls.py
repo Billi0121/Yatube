@@ -21,6 +21,7 @@ from posts import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
+    path('auth/', views.not_authorizade, name = 'not_authorizade'),
     path('<str:username>', views.user_profile, name = 'user_profile'),
     path('group/<slug>/', views.group_post, name = 'group_post'),
      path('auth/', include('users.urls', namespace='users')),

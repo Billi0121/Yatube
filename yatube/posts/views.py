@@ -13,7 +13,7 @@ def authorized_only(func):
     def check_user(request, *args, **kwargs,):
         if request.user.is_authenticated:
             return func(request, *args, **kwargs)
-        return redirect('/auth/login/')        
+        return redirect('/auth/')        
     return check_user
 
 
@@ -26,6 +26,7 @@ def index(request):
         context = {
             'page_obj': page_obj,
             # 'postt': posts,
+            'user_name': user_name
         }
         return render(request, 'posts/index.html', context,)
 
@@ -108,3 +109,6 @@ def user_profile(request, username):
         'user_name': user_name
     }
     return render(request, 'posts/user_profile.html', context)
+
+def not_authorizade(request):
+    return render(request, 'posts/not_authorizade.html')
