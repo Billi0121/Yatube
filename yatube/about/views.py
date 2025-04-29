@@ -14,6 +14,10 @@ def only_outhorizade(funn):
 class me(TemplateView):
     template_name = 'about/me.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['Hello'] = 'Nothing to say'
+
 
 def technology(TemplateView):
     template_name = 'about/technology.html'

@@ -104,11 +104,6 @@ class editview(UpdateView):
    template_name = 'posts/post.html'
    success_url = reverse_lazy('index')
 
-# def editview(request, pk):
-#     posts_pk = Post.objects.get(pk=pk)
-#     form = PostForm(instance=posts_pk)
-#     model = Post
-#     return render(request, 'posts/post.html', {'form': form})
 
 @authorized_only
 def user_profile(request, username):
