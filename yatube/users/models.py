@@ -10,3 +10,4 @@ class Users(models.Model):
     last_name = models.CharField(max_length=150)
     password = models.TextField()
     email = models.CharField(max_length=40)
+    

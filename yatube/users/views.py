@@ -22,6 +22,4 @@ class SignUpView(CreateView):
         success_url = reverse_lazy('thankyou')
 
 
-def test(request):
-    form = ContactForm
-    return render(request, 'users/test.html', {'form': form})
+

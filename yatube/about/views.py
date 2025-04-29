@@ -11,7 +11,6 @@ def only_outhorizade(funn):
         return redirect('auth/login')
     return check_user
 
-
 class me(TemplateView):
     template_name = 'about/me.html'
 

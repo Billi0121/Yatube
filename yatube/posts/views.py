@@ -3,6 +3,7 @@ from posts.models import Post, group
 from django.contrib.auth.models import User
 import datetime
 from django.views.generic.edit import CreateView
+from django.views.generic.base import TemplateView
 from .forms import *
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
@@ -13,7 +14,7 @@ def authorized_only(func):
     def check_user(request, *args, **kwargs,):
         if request.user.is_authenticated:
             return func(request, *args, **kwargs)
-        return redirect('/auth/')        
+        return redirect('/auth/login/')        
     return check_user
 
 
@@ -26,7 +27,6 @@ def index(request):
         context = {
             'page_obj': page_obj,
             # 'postt': posts,
-            'user_name': user_name
         }
         return render(request, 'posts/index.html', context,)
 
@@ -99,8 +99,14 @@ class postview(CreateView):
 #     }
 #     return render(request, 'posts/post.html', context)
 
-def test(request):
-    return render(request, 'posts/test.html')
+class test(CreateView):
+    contact = Post.objects.get(pk=4)
+    form_class = PostForm(instance=contact)
+    template_name = 'posts/test.html'
+
+#    def get_context_data(self, **kwargs):
+#         context = super().get_context_data(self)
+#         context.['list'] = 'There is nothing new'
 
 @authorized_only
 def user_profile(request, username):
@@ -109,6 +115,3 @@ def user_profile(request, username):
         'user_name': user_name
     }
     return render(request, 'posts/user_profile.html', context)
-
-def not_authorizade(request):
-    return render(request, 'posts/not_authorizade.html')
