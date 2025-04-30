@@ -106,9 +106,17 @@ class editview(UpdateView):
 
 
 @authorized_only
-def user_profile(request, username):
+def user_profile    (request, username):
     user_name = get_object_or_404(User, username=username)
     context = {
         'user_name': user_name
     }
     return render(request, 'posts/user_profile.html', context)
+
+def users_post(request, pk):
+    
+    context = {
+        'page_obj': user_post
+    }
+
+    return render(request, 'posts/users_posts.html', context)

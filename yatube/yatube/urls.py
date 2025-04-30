@@ -34,6 +34,7 @@ urlpatterns = [
     path('post_create/', views.postview.as_view(), name='post_create'),
     path('about/', include('about.urls', namespace='about')),
     path('test/<int:pk>/', views.test, name='test'),
+    path('/<int:pk>/posts/', views.users_post, name='users_post'),
     # path('posts/<int:post_id>/', views.post_detail, name='post_detail'), 
     ]
 
