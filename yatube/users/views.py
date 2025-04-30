@@ -3,7 +3,14 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import *
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('users:login')
 
 def admin_detail(request):
     return render(request, 'users/logout.html')

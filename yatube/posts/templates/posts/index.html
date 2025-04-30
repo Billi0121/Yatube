@@ -49,7 +49,7 @@
             <span class="text-gray-500 text-sm">{{ post.pub_date }}</span>
           </div>
           <p class="text-gray-800">{{ post.text }}</p>
-          {% if post.user.id == user.id %}
+          {% if post.author.id == user.id %}
             <a href="{{ post.id }}/edit/">Edit post</a>
           {% endif %}
         </article>
