@@ -17,6 +17,8 @@ class me(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Hello'] = 'Nothing to say'
+    
+        return context
 
 
 def technology(TemplateView):
