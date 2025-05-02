@@ -85,13 +85,6 @@ def group_post(request, slug):
     }
     return render(request, 'posts/group_post.html', context)    
 
-def test(request, pk):
-    post = Post.objects.get(pk=3)
-    form = PostForm(instance=post)
-    model = Post
-    return render(request, 'posts/test.html', {'form': form})
-
-
 class postview(CreateView):
     form_class = PostForm
     template_name = 'posts/post.html'
@@ -106,7 +99,7 @@ class editview(UpdateView):
 
 
 @authorized_only
-def user_profile    (request, username):
+def user_profile(request, username):
     user_name = get_object_or_404(User, username=username)
     context = {
         'user_name': user_name
@@ -114,9 +107,9 @@ def user_profile    (request, username):
     return render(request, 'posts/user_profile.html', context)
 
 def users_post(request, pk):
-    
+    User_pk = User.objects.get(pk=pk)
+    user_post = Post.objects.filter(author=User_pk)
     context = {
         'page_obj': user_post
     }
-
-    return render(request, 'posts/users_posts.html', context)
+    return render(request, 'posts/user_posts.html', context)
