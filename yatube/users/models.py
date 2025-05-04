@@ -3,11 +3,28 @@ from django.contrib.auth import get_user_model
 
 
 
+
 # Create your models here.
-class Users(models.Model):
-    name = models.CharField(max_length=200)
-    username = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=150)
-    password = models.TextField()
-    email = models.CharField(max_length=40)
-    
+
+class UsersInFormation(models.Model):
+    name = models.CharField()
+    second_name = models.CharField()
+    birth_year = models.DateField()
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+        
+
+    group = {
+        'group',
+        # on_delete=models.SETNULL
+    }
+
+
+
+
+class group(models.Model):
+    slug = models.SlugField()
+    about_slug = models.CharField()
+    discription = models.TextField()

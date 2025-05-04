@@ -1,6 +1,5 @@
 from django.contrib import admin
 from posts.models import *
-from users.models import Users
 
 # Register your models here.
 class Post_table(admin.ModelAdmin):
@@ -25,7 +24,7 @@ class Book_table(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 admin.site.register(Contact)
-admin.site.register(Users)
+# admin.site.register(Users)
 admin.site.register(Book, Book_table)
 admin.site.register(group)
 admin.site.register(Post, Post_table)
