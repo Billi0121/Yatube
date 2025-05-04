@@ -109,7 +109,10 @@ def user_profile(request, username):
 def users_post(request, pk):
     User_pk = User.objects.get(pk=pk)
     user_post = Post.objects.filter(author=User_pk)
+    paginator = Paginator(user_post, 5)
+    page_count = request.GET.get('page')
+    result_paginator = paginator.get_page(page_count)
     context = {
-        'page_obj': user_post
+        'page_obj': result_paginator
     }
     return render(request, 'posts/user_posts.html', context)
