@@ -19,6 +19,7 @@ class me(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Hello'] = 'Nothing to say'
+        context['Me'] = User.objects.get(pk=3)
     
         return context
 

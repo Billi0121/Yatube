@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from .validators import *
 from users.models import *
+from pytils.translit import slugify
 
 User = get_user_model()
 
@@ -45,3 +46,8 @@ class Contact(models.Model):
     body = models.TextField()
     is_answered = models.BooleanField() 
 
+
+def save(self, *args, **kwargs):
+    if not self.slug:
+        self.slug = slugify(self.title)[:100]
+    super().save(*args, **kwargs)
