@@ -37,4 +37,5 @@ urlpatterns = [
     path('<int:pk>/posts/', views.users_post, name='users_post'),
     # path('posts/<int:post_id>/', views.post_detail, name='post_detail'), 
     ]
+handler404='core.views.page_not_found'
 

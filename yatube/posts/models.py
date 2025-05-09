@@ -36,6 +36,12 @@ class Book(models.Model):
     name = models.CharField(max_length=100, )
     isbn = models.CharField(max_length=100)
     pages = models.IntegerField()
+    image = models.ImageField(
+        'Картинка',
+        blank=True,
+        null=True,
+        help_text='Загрузите картинку'
+    )
     
 class Contact(models.Model):
     # К полю name подключаем валидатор, проверяющий, что поле не пустое.

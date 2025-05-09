@@ -4,7 +4,7 @@ from .models import *
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ('name', 'isbn', 'pages') 
+        fields = ('name', 'isbn', 'pages', 'image') 
 
 # class ContactForm(forms.Form):
 #     name = forms.CharField(max_length=100)
@@ -21,4 +21,4 @@ class ContactForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['text', 'group']
+        fields = ['text', 'group',]

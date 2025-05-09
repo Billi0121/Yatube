@@ -64,7 +64,7 @@ def thankyou(request):
     return render(request, 'posts/thankyou.html')
 
 class BookView(CreateView): 
-    form_class = BookForm    
+    form_class = BookForm
     template_name = 'posts/books.html'  
     success_url = '/thankyou/' 
 

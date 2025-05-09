@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>  
-    <form method="post" action="/new_book/">
-        <p><label for="id_name">name:</label>
-           <input id="id_name" type="text" name="name" required></p>
-        {% comment %} <p><label for="id_isbn">isbn:</label>
-           <input id="id_isbn" type="text" name="isbn" maxlength="100" required></p>
-        <p><label for="id_pages">pages:</label>
-           <input id="id_pages" type="number" name="pages" required></p> {% endcomment %}
-           {% csrf_token %}
-        <input type="submit" value="Отправить">
-      </form> 
+<form method="post" action="/new_book/">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="Отправить">
 </form> 
-</body>
-</html>

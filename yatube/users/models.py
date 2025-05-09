@@ -7,8 +7,8 @@ User = get_user_model()
 # Create your models here.
 
 class UsersInformation(models.Model):
-    name = models.CharField()
-    second_name = models.CharField()
+    name = models.CharField(max_length=20)
+    second_name = models.CharField(max_length=20)
     birth_year = models.DateField()
     pub_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -27,7 +27,7 @@ class UsersInformation(models.Model):
 
 class group(models.Model):
     slug = models.SlugField()
-    about_slug = models.CharField()
+    about_slug = models.CharField(max_length=20)
     discription = models.TextField()
 
     def __str__(self):
