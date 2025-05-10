@@ -19,14 +19,14 @@ class UsersInformation(models.Model):
         'group',
         on_delete=models.SET_NULL,
         blank=True,
-        null=True
+        null=True,
     )
 
 
 
 
 class group(models.Model):
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200, unique=True)
     about_slug = models.CharField(max_length=20)
     discription = models.TextField()
 

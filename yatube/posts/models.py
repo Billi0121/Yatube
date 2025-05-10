@@ -15,6 +15,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts'
     )
+    
     group = models.ForeignKey(
         "Group",  
         on_delete=models.SET_NULL,  
@@ -38,6 +39,7 @@ class Book(models.Model):
     pages = models.IntegerField()
     image = models.ImageField(
         'Картинка',
+        upload_to='posts/',
         blank=True,
         null=True,
         help_text='Загрузите картинку'
