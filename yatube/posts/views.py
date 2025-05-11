@@ -93,7 +93,7 @@ class postview(CreateView):
 class editview(UpdateView): 
    form = PostForm
    model = Post
-   fields = ['text', 'group']
+   fields = ['text', 'group', 'post_image']
    template_name = 'posts/post.html'
    success_url = reverse_lazy('index')
 

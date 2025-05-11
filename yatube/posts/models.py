@@ -10,6 +10,13 @@ User = get_user_model()
 class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
+    post_image = models.ImageField(
+        'Img',
+        upload_to='yatube/',
+        blank=True,
+        null=True,
+        help_text='Upload your image if you want'
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -34,16 +41,20 @@ class group(models.Model):
         return self.title
         
 class Book(models.Model):
-    name = models.CharField(max_length=100, )
+    name = models.CharField(max_length=100,)
     isbn = models.CharField(max_length=100)
     pages = models.IntegerField()
     image = models.ImageField(
         'Картинка',
-        upload_to='posts/',
-        blank=True,
-        null=True,
+        upload_to='yatube/',
+        blank=False,
+        null=False,
         help_text='Загрузите картинку'
     )
+
+    def __str__(self):
+        return self.name
+    
     
 class Contact(models.Model):
     # К полю name подключаем валидатор, проверяющий, что поле не пустое.
