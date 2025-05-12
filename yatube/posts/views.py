@@ -90,12 +90,32 @@ class postview(CreateView):
     template_name = 'posts/post.html'
     success_url = reverse_lazy('index')
 
-class editview(UpdateView): 
-   form = PostForm
-   model = Post
-   fields = ['text', 'group', 'post_image']
-   template_name = 'posts/post.html'
-   success_url = reverse_lazy('index')
+def post_edit(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if post.author != request.user:
+        return redirect('post_detail', post_id=post_id)
+
+    form = PostForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=post
+    )
+    if form.is_valid():
+        form.save()
+        return redirect('post_detail', post_id=post_id)
+    context = {
+        'post': post,
+        'form': form,
+        'is_edit': True,
+    }
+    return render(request, 'posts/post.html', context) 
+
+# class editview(UpdateView): 
+#    form = PostForm
+#    model = Post
+#    fields = ['text', 'group', 'post_image']
+#    template_name = 'posts/post.html'
+#    success_url = reverse_lazy('index')
 
 
 @authorized_only
@@ -117,6 +137,8 @@ def users_post(request, pk):
     }
     return render(request, 'posts/user_posts.html', context)
 
+@authorized_only
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     return render(request, 'posts/post_detail.html', {'post': post})
+
