@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
     # path('/', views.index, name = 'index'),
-    path('<int:pk>/edit/', views.editview.as_view(), name = 'posts_edit'),
     # path('auth/', views.not_authorizade, name = 'not_authorizade'),
     path('<str:username>', views.user_profile, name = 'user_profile'),
     path('group/<slug>/', views.group_post, name = 'group_post'),
@@ -35,9 +34,10 @@ urlpatterns = [
     path('new_book/', views.BookView.as_view(), name='new_book'),
     path('thankyou/', views.thankyou, name='thankyou'),
     path('post_create/', views.postview.as_view(), name='post_create'),
+    path('<int:pk>/edit/', views.editview.as_view(), name = 'posts_edit'),
     path('about/', include('about.urls', namespace='about')),
     path('<int:pk>/posts/', views.users_post, name='users_post'),
-    # path('posts/<int:post_id>/', views.post_detail, name='post_detail'), 
+    path('<int:pk>/post/', views.post_detail, name='post_detail'), 
     ]
 handler404='core.views.page_not_found'
 if settings.DEBUG:

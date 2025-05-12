@@ -116,3 +116,7 @@ def users_post(request, pk):
         'page_obj': result_paginator
     }
     return render(request, 'posts/user_posts.html', context)
+
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+    return render(request, 'posts/post_detail.html', {'post': post})

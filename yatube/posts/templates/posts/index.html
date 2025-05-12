@@ -53,6 +53,8 @@
           {% if post.author.id == user.id %}
             <a href="{{ post.id }}/edit/">Edit post</a>
           {% endif %}
+          |
+          <a href="{{ post.id }}/post_detail/">Detail</a>
         </article>
       {% empty %}
         <p>No posts available.</p>  

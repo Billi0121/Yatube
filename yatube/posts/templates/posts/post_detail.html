@@ -1,0 +1,15 @@
+{% extends "posts/base.html" %}
+
+{% block content %}
+{{ post.text }}
+{{ post.auhotor }}
+{{ post.pub_date }}
+{% if post.image %}
+<img src="{{ post.image.url }}" alt="Post image">
+{% endif %}
+{% if post.group %}
+<p>Group: {{ post.group.title }}</p>
+{% endif %}
+{% if post.author == user %}
+<a href="{% url 'posts:post_edit' post.id %}">Edit</a>
+{% endblock %}
