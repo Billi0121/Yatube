@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from posts.models import Post, group
+from posts.models import *
 from django.contrib.auth.models import User
 import datetime
 from django.views.generic.edit import CreateView, UpdateView
@@ -140,5 +140,18 @@ def users_post(request, pk):
 @authorized_only
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    return render(request, 'posts/post_detail.html', {'post': post})
+    comments = Comment.objects.all()
+    context = {
+        'post': post,
+        'comments': comments
+    }
+    return render(request, 'posts/post_detail.html', context)
 
+def add_comment(request, post_id):
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post
+        comment.save()
+    return redirect('posts:post_detail', post_id=post_id)

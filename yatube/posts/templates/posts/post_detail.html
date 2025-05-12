@@ -31,6 +31,20 @@
       {% if request.user == post.author %}
         <a href="{% url 'posts_edit' post.id %}">Редактировать</a>
       {% endif %}
+      {% for comment in comments %}
+        <div class="media mb-4">
+          <div class="media-body">
+            <h5 class="mt-0">
+              <a href="">
+                {{ comment.author.username }}
+              </a>
+            </h5>
+              <p>
+              {{ comment.text }}
+              </p>
+            </div>
+          </div>
+      {% endfor %} 
     </div>
   </div>
 </div>
@@ -41,4 +55,5 @@
   <a href="">Технологии</a><br>
   Социальная сеть <span style="color: red;">Billi</span>Bi
 </footer>
+
 {% endblock %}
