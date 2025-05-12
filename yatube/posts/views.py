@@ -140,7 +140,7 @@ def users_post(request, pk):
 @authorized_only
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
-    comments = Comment.objects.all()
+    comments = Comment.objects.filter(post_id=pk)
     context = {
         'post': post,
         'comments': comments
