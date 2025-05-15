@@ -38,7 +38,7 @@ urlpatterns = [
     path('about/', include('about.urls', namespace='about')),
     path('<int:pk>/posts/', views.users_post, name='users_post'),
     path('<int:pk>/post_detail/', views.post_detail, name='post_detail'),
-    path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment')
+    path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
     ]
 handler404='core.views.page_not_found'
 if settings.DEBUG:

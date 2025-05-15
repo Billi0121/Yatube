@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 
 
 def authorized_only(func):
+    """Cheking The if user authorizede"""
     def check_user(request, *args, **kwargs,):
         if request.user.is_authenticated:
             return func(request, *args, **kwargs)
@@ -21,21 +22,18 @@ def authorized_only(func):
 
 @authorized_only
 def index(request):
-        posts = Post.objects.all()
-        paginator = Paginator(posts, 5)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context = {
-            'page_obj': page_obj,
-            # 'postt': posts,
-        }
-        return render(request, 'posts/index.html', context,)
+    """Menu"""
+    posts = Post.objects.all().order_by('-pub_date')
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+        # 'postt': posts,
+    }
+    return render(request, 'posts/index.html', context,)
 
-class EditView(UpdateView):
-    form = PostForm
-    model = Post
-    template_name = 'posts/edit.html'
-    success_url = reverse_lazy('/thankyou/')
+
 
 @authorized_only
 def groupe(request):
@@ -48,6 +46,7 @@ def groupe(request):
 
 @authorized_only
 def indexx(request):
+    """I doit it For Test"""
     author = User.objects.get(username='leo')
     keywoard = 'утро'
     start_date = datetime.date(1854, 7, 7)
@@ -61,15 +60,18 @@ def indexx(request):
 
 @authorized_only
 def thankyou(request):
+    """After Adding or Else Showing success Not to need it now"""
     return render(request, 'posts/thankyou.html')
 
-class BookView(CreateView): 
+class BookView(CreateView):
+    """I created Him just for a Test""" 
     form_class = BookForm
     template_name = 'posts/books.html'  
     success_url = '/thankyou/' 
 
 @authorized_only
 def group_post(request, slug):
+    """Going to groups Posts"""
     Group = get_object_or_404(group, slug=slug)
     posts = Post.objects.filter(group=Group).order_by('-pub_date')
     count_posts_it = posts.count()
@@ -86,14 +88,16 @@ def group_post(request, slug):
     return render(request, 'posts/group_post.html', context)    
 
 class postview(CreateView):
+    """Creating Post"""
     form_class = PostForm
     template_name = 'posts/post.html'
     success_url = reverse_lazy('index')
 
 def post_edit(request, post_id):
+    """Editing Post"""
     post = get_object_or_404(Post, pk=post_id)
     if post.author != request.user:
-        return redirect('post_detail', post_id=post_id)
+        return redirect('post_detail', pk=post_id)
 
     form = PostForm(
         request.POST or None,
@@ -102,7 +106,7 @@ def post_edit(request, post_id):
     )
     if form.is_valid():
         form.save()
-        return redirect('post_detail', post_id=post_id)
+        return redirect('post_detail', pk=post_id)
     context = {
         'post': post,
         'form': form,
@@ -120,6 +124,7 @@ def post_edit(request, post_id):
 
 @authorized_only
 def user_profile(request, username):
+    """Show users Name in a main"""
     user_name = get_object_or_404(User, username=username)
     context = {
         'user_name': user_name
@@ -127,6 +132,7 @@ def user_profile(request, username):
     return render(request, 'posts/user_profile.html', context)
 
 def users_post(request, pk):
+    """Sorting Post by user"""
     User_pk = User.objects.get(pk=pk)
     user_post = Post.objects.filter(author=User_pk)
     paginator = Paginator(user_post, 5)
@@ -139,6 +145,7 @@ def users_post(request, pk):
 
 @authorized_only
 def post_detail(request, pk):
+    """Showing Posts detail EX likes Comments"""
     post = Post.objects.get(pk=pk)
     comments = Comment.objects.filter(post_id=pk)
     context = {
@@ -148,10 +155,12 @@ def post_detail(request, pk):
     return render(request, 'posts/post_detail.html', context)
 
 def add_comment(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
     form = CommentForm(request.POST or None)
     if form.is_valid():
         comment = form.save(commit=False)
         comment.author = request.user
         comment.post = post
         comment.save()
-    return redirect('posts:post_detail', post_id=post_id)
+        return redirect('post_detail', pk=post_id)
+    return render(request, 'posts/addcomment.html', {'form': form})

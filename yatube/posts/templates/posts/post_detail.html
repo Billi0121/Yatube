@@ -29,27 +29,50 @@
         {{ post.pub_date|date:"d E Y г. H:i" }}
       </p>
       {% if request.user == post.author %}
-        <a href="{% url 'posts_edit' post.id %}">Редактировать</a>
+        <a href="{% url 'posts_edit' post.id %}">Edit</a>
       {% endif %}
     </div>
   </div>
 </div>
-<h1>Comment...</h1>
-{% for comment in comments %}
-        <div class="media mb-4">
-          <div class="media-body">
-            <h5 class="mt-0">
-              <a href="">
-                {{ comment.author.username }}
-              </a>
-            </h5>
-              <p>
-              {{ comment.text }}
-              </p>
-            </div>
-          </div>
-{% endfor %} 
+<div class="Comment" style="margin-top: 30px; padding: 25px; background-color: #fdfdfd; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+  <h2 style="margin-bottom: 20px; font-size: 1.5em; border-bottom: 2px solid #eee; padding-bottom: 10px; color: #333;">comments</h2>
+  
+{% if user.is_authenticated %}
+  <div class="card my-4">
+    <h5 class="card-header">Добавить комментарий:</h5>
+    <div class="card-body">
+      <form method="post" action="{% url 'add_comment' post.id %}">
+        {% csrf_token %}      
+        <div class="form-group mb-2">
+          {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
 
+  {% for comment in comments %}
+    <div class="media" style="padding: 15px 0; border-bottom: 1px solid #e5e5e5;">
+      <div class="media-body">
+        <h5 style="margin: 0 0 5px; font-size: 1em; color: #0073e6;">
+          <a href="#" style="text-decoration: none; color: inherit;">
+            {{ comment.author.username }}
+          </a>
+          <span style="color: #999; font-size: 0.85em; margin-left: 8px;">
+            {{ comment.created|date:"d.m.Y H:i" }}
+          </span>
+        </h5>
+        <p style="margin: 0; color: #444;">{{ comment.text }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p style="color: #888;">Пока нет комментариев. Будьте первым!</p>
+  {% endfor %}
+</div>
+
+
+</div>
 <!-- Футер -->
 <footer style="margin-top: 40px; text-align: center;">
   <a href="">Об авторе сайта</a> -

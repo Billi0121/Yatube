@@ -1,9 +1,5 @@
-{% extends "posts/index.html" %}
-
-{% block content %}
 <form method="post" action='' enctype='multipart/form-data'>
     {% csrf_token %}
     {{ form.as_p }}
     <button value="Sumbmit">Sumbmit</button>
-</form> 
-{% endblock %}
+</form>
