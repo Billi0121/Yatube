@@ -31,7 +31,7 @@ def index(request):
         'page_obj': page_obj,
         # 'postt': posts,
     }
-    return render(request, 'posts/index.html', context,)
+    return render(request, 'posts/index.html', context, content_type='text/html', status=200)
 
 
 
@@ -147,7 +147,7 @@ def users_post(request, pk):
 def post_detail(request, pk):
     """Showing Posts detail EX likes Comments"""
     post = Post.objects.get(pk=pk)
-    comments = Comment.objects.filter(post_id=pk)
+    comments = comment.objects.filter(post_id=pk)
     context = {
         'post': post,
         'comments': comments
@@ -163,4 +163,8 @@ def add_comment(request, post_id):
         comment.post = post
         comment.save()
         return redirect('post_detail', pk=post_id)
-    return render(request, 'posts/addcomment.html', {'form': form})
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, 'posts/addcomment.html', context)
