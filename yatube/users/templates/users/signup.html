@@ -1,59 +1,86 @@
-{% extends "users/base.html" %}
-{% block title %}Зарегистрироваться{% endblock %}
-{% block content %}
-  <div class="row justify-content-center">
-    <div class="col-md-8 p-5">
-      <div class="card">
-        <div class="card-header">Зарегистрироваться</div>
-          <div class="card-body">
-          {% load user_filters %} {# Загружаем фильтры #}
-              {% if form.errors %}
-                  {% for field in form %} 
-                    {% for error in field.errors %}            
-                      <div class="alert alert-danger">
-                        {{ error|escape }}
-                      </div>
-                    {% endfor %}
-                  {% endfor %}
-                  {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger">
-                      {{ error|escape }}
-                    </div>
-                  {% endfor %}
-              {% endif %}
+{% load static %}
+<!DOCTYPE html> 
+<html lang="ru"> 
+  <head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="icon" href="{% static 'users/img/fav/fav.ico' %}" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'users/img/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'users/img/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'users/img/fav/favicon-16x16.png' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
-              <form method="post" action="{% url 'users:signup' %}">
-              {% csrf_token %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>REGISTRATIONS</title>
+  </head>
 
-              {# Выводим поля в цикле, по отдельности #}
-              {% for field in form %} 
-                <div class="form-group row my-3">
-                  <label for="{{ field.id_for_label }}">
-                    {{ field.label }}
-                      {% if field.field.required %}
-                        <span class="required text-danger">*</span>
-                      {% endif %}
-                  </label>
-                  {# К полю ввода добавляем атрибут class #}
-                  {{ field|addclass:'form-control' }} 
-                    {% if field.help_text %}
-                      <small 
-                         id="{{ field.id_for_label }}-help"
-                         class="form-text text-muted"
-                      >
-                        {{ field.help_text|safe }}
-                      </small>
-                    {% endif %}
-                </div>
-              {% endfor %}
-              <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                  Зарегистрироваться
-                </button>
+  <body class="min-h-screen bg-gray-100 flex flex-col">
+
+    <main class="flex-grow flex items-center justify-center px-4">
+      <div class="flex flex-col items-center space-y-4 w-full max-w-md">
+
+        <div class="w-full bg-white border border-gray-300 p-8 rounded-md shadow">
+          <h1 class="text-3xl font-bold text-center mb-6">
+            <span class="text-red-500">Billi</span><span class="text-black">Bi</span>
+          </h1>
+          <h2 class="text-xl text-center font-semibold mb-4">Зарегистрироваться</h2>
+
+          <form method="post" action="{% url 'users:signup' %}" class="space-y-4">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="flex flex-col space-y-1">
+                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-700">
+                  {{ field.label }}
+                  {% if field.field.required %}
+                    <span class="text-red-500">*</span>
+                  {% endif %}
+                </label>
+                <input
+                  type="{{ field.field.widget.input_type }}"
+                  name="{{ field.name }}"
+                  id="{{ field.id_for_label }}"
+                  value="{{ field.value|default_if_none:'' }}"
+                  class="border border-gray-300 rounded-sm px-3 py-2 text-sm w-full focus:outline-none focus:ring-1 focus:ring-red-400"
+                >
+                
+                {% if field.errors %}
+                  {% for error in field.errors %}
+                    <span class="text-sm text-red-600">{{ error }}</span>
+                  {% endfor %}
+                {% endif %}
+                
+                {% if field.help_text %}
+                  <small class="text-gray-500 text-xs">{{ field.help_text|safe }}</small>
+                {% endif %}
               </div>
-            </form>
-          </div> <!-- card body -->
-        </div> <!-- card -->
-      </div> <!-- col -->
-  </div> <!-- row -->
-{% endblock %} 
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+              <div class="text-sm text-red-600 mb-2">
+                {% for error in form.non_field_errors %}
+                  <div>{{ error }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-sm font-semibold hover:bg-red-600">
+              Зарегистрироваться
+            </button>
+          </form>
+
+          <div class="text-center mt-4">
+            <p class="text-sm text-gray-600">Уже есть аккаунт?
+              <a href="{% url 'users:login' %}" class="text-red-500 hover:underline">Войти</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="border-t text-center py-3">
+      <p>© 2021 Copyright <span style="color:red">Ya</span>tube</p>    
+    </footer>
+  </body>
+</html>

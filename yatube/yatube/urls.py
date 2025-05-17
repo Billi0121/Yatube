@@ -33,7 +33,7 @@ urlpatterns = [
     # path('/posts/<int:pk>/edit/', views.post_edit, name = 'post_edit'),
     path('new_book/', views.BookView.as_view(), name='new_book'),
     path('thankyou/', views.thankyou, name='thankyou'),
-    path('post_create/', views.postview.as_view(), name='post_create'),
+    path('post_create/', views.postview, name='post_create'),
     path('<int:post_id>/edit/', views.post_edit, name = 'posts_edit'),
     path('about/', include('about.urls', namespace='about')),
     path('<int:pk>/posts/', views.users_post, name='users_post'),
@@ -45,3 +45,7 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += (path('__debug__/', include(debug_toolbar.urls)),) 

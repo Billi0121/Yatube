@@ -10,10 +10,11 @@ User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
+    # Правильно определяем поля формы — ВНЕ Meta!
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True, max_length=30)
+
     class Meta(UserCreationForm.Meta):
-        email = forms.CharField(max_length=30)
-        first_name = forms.CharField(max_length=30)
-        last_name = forms.CharField(max_length=30)
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2',]
-        email = forms.CharField(max_length=30)
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']

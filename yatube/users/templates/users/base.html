@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 <!DOCTYPE html> 
 <html lang="ru"> 
   <head>    
@@ -11,7 +11,9 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <title>Вы вышли из системы</title>
+    <title>{% block title %}
+      {% endblock %}
+    </title>
     <link rel="stylesheet" href="{% static 'users/css/bootstrap.min.css' %}">
   </head>
   <body>	   
@@ -33,4 +35,4 @@
       <p>© 2021 Copyright <span style="color:red">Ya</span>tube</p>    
     </footer>
   </body>
-</html>
+</html> {% endcomment %}

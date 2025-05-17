@@ -9,6 +9,9 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.db.models import *
 from django.urls import reverse_lazy
+from django.views.decorators.cache import cache_page
+
+
 
 
 def authorized_only(func):
@@ -19,7 +22,7 @@ def authorized_only(func):
         return redirect('/auth/login/')        
     return check_user
 
-
+# @cache_page(60)
 @authorized_only
 def index(request):
     """Menu"""
@@ -87,11 +90,14 @@ def group_post(request, slug):
     }
     return render(request, 'posts/group_post.html', context)    
 
-class postview(CreateView):
+def postview(request):
     """Creating Post"""
-    form_class = PostForm
-    template_name = 'posts/post.html'
-    success_url = reverse_lazy('index')
+    user = User.objects.all()
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        # user.username = request.author
+        form.save()
+    return render(request, 'posts/post.html', {'form': form})
 
 def post_edit(request, post_id):
     """Editing Post"""
