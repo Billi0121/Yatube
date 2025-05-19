@@ -19,6 +19,8 @@
     </div>
 
     <div class="flex items-center gap-2 text-sm">
+      <strong><h1><a href="{% url 'about:me' %}">Author</a></h1></strong>
+      |
       <a href="{% url 'users:logged_out' %}">LogOut</a>
       |
         <a href="{% url 'users:password_change_form' %}">Change Password</a>

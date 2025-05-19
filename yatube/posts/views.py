@@ -22,7 +22,7 @@ def authorized_only(func):
         return redirect('/auth/login/')        
     return check_user
 
-# @cache_page(60)
+@cache_page(60)
 @authorized_only
 def index(request):
     """Menu"""
@@ -36,16 +36,6 @@ def index(request):
     }
     return render(request, 'posts/index.html', context, content_type='text/html', status=200)
 
-
-
-@authorized_only
-def groupe(request):
-    title = 'Empty'
-    post_objects = Post.objects.all()
-    context = {
-        'title': title,
-    }
-    return render(request, 'posts/groupe.html', context)
 
 @authorized_only
 def indexx(request):
@@ -119,13 +109,6 @@ def post_edit(request, post_id):
         'is_edit': True,
     }
     return render(request, 'posts/post.html', context) 
-
-# class editview(UpdateView): 
-#    form = PostForm
-#    model = Post
-#    fields = ['text', 'group', 'post_image']
-#    template_name = 'posts/post.html'
-#    success_url = reverse_lazy('index')
 
 
 @authorized_only

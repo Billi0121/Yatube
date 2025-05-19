@@ -28,7 +28,6 @@ urlpatterns = [
     path('<str:username>', views.user_profile, name = 'user_profile'),
     path('group/<slug>/', views.group_post, name = 'group_post'),
      path('auth/', include('users.urls', namespace='users')),
-    path('groupe/', views.groupe, name = 'group_list'),
     # path('auth/', include('django.contrib.auth.urls')),
     # path('/posts/<int:pk>/edit/', views.post_edit, name = 'post_edit'),
     path('new_book/', views.BookView.as_view(), name='new_book'),

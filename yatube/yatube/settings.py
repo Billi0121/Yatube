@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import sorl.thumbnail
+import debug_toolbar
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,7 @@ SECRET_KEY = 'django-insecure-=vaa5&#v90qymre8@=jstc0(gs_3(p^5l*8@bs88qz+sebz%v@
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'www.billibi.pythonanywhere.com',
     'billibi.pythonanywhere.com',
 ]
