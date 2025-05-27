@@ -1,59 +1,45 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru"> 
-  <head>  
-    <!-- Подключены иконки, стили и заполенены мета теги -->
-    <title>{{ user_name }}</title>
-  </head>
-  <link href="{% static 'posts/css/bootstrap.min.css' %}" rel=stylesheet>
-  <body>       
-    <header>
-      <nav class="navbar navbar-light" style="background-color: lightskyblue">
-        <div class="container">
-          <a class="navbar-brand" href="/">
-            <img src="/static/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            <span style="color:red">Ya</span>tube
-          </a>
-        </div>
-      </nav>      
-    </header>
-    <main>
-      <div class="container py-5">        
-        <h1>Все посты пользователя <!--Лев Толстой--> </h1>
-        <h3>Всего постов: <!-- --> </h3>   
-        <article>
-          <ul>
-            <li>
-              Автор: <!--Лев Толстой-->
-              <a href="<!-- -->">все посты пользователя</a>
-            </li>
-            <li>
-              Дата публикации: <!-- 31 июля 1854 --> 
-            </li>
-          </ul>
-          <p>
-          <!--
-            [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ 
-            Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
-            Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
-            мъ здоровьи.
-            Свинья! К[о]вырялъ носъ и ничего не написалъ — вотъ 2 упрека за 
-            нын[ѣшній]     день. Послѣдній упрекъ становится слишкомъ частъ, 
-            хотя походъ и можетъ служить въ немъ отчасти извиненіемъ. 
-            Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ 
-            жалко бросить штабъ. Здоровье кажется (2) лучше. 
-          --> 
-          </p>
-          <a href="<!-- -->">подробная информация </a>
-        </article>       
-        <a href="<!-- -->">все записи группы</a>        
-        <hr>
-        <!-- Остальные посты. после последнего нет черты -->
-        <!-- Здесь подключён паджинатор -->  
+{% extends "posts/index.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto p-4">
+  <!-- Верхняя часть -->
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-bold">{{ user.username }}</h1>
+    <div class="space-x-2 text-sm">
+      <a href="#" class="bg-neutral-200 px-3 py-1 rounded hover:bg-neutral-300">Редактировать профиль</a>
+      <a href="#" class="bg-neutral-200 px-3 py-1 rounded hover:bg-neutral-300">Архив</a>
+      <a href="#" class="text-xl">⚙️</a>
+    </div>
+  </div>
+
+  <!-- Аватар и информация -->
+  <div class="flex mt-6 items-center space-x-6">
+    <div class="relative w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-3xl">
+      📷
+    </div>
+    <div>
+      <p class="text-sm">{{ request.user.first_name }}</p>
+      <p class="text-gray-500 text-sm">@{{ request.user.username }}</p>
+      <div class="flex space-x-4 mt-2 text-sm text-gray-600">
+        <span>{{ posts|length }} публикаций</span>
+        <span>0 подписчиков</span>
+        <span>43 подписок</span>
       </div>
-    </main>
-    <footer class="border-top text-center py-3">
-      <p>© <!--2021 --> Copyright <span style="color:red">Ya</span>tube</p>    
-    </footer>
-  </body>
-</html>
+    </div>
+  </div>
+
+
+  <!-- Вкладки -->
+  <div class="flex justify-around mt-6 border-t border-gray-300 pt-4 text-sm text-gray-500">
+    <span class="cursor-pointer hover:text-black">📋 ПУБЛИКАЦИИ</span>
+    <span class="cursor-pointer hover:text-black">💾 СОХРАНЕННОЕ</span>
+    <span class="cursor-pointer hover:text-black">🏷️ ОТМЕТКИ</span>
+  </div>
+
+  <!-- Пустой профиль -->
+  <div class="flex flex-col items-center mt-12 text-center text-gray-500">
+    <div class="text-5xl mb-2">📷</div>
+    <h2 class="text-xl font-bold text-black">Поделиться фото</h2>
+    <p class="text-sm mt-1">Фото, которыми вы делитесь, будут показываться здесь.</p>
+  </div>
+</div>
+{% endblock %}

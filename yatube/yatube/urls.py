@@ -25,12 +25,12 @@ urlpatterns = [
     path('', views.index, name = 'index'),
     # path('/', views.index, name = 'index'),
     # path('auth/', views.not_authorizade, name = 'not_authorizade'),
-    path('<str:username>', views.user_profile, name = 'user_profile'),
+    path('<str:username>/', views.user_profile, name = 'user_profile'),
     path('group/<slug>/', views.group_post, name = 'group_post'),
      path('auth/', include('users.urls', namespace='users')),
     # path('auth/', include('django.contrib.auth.urls')),
-    # path('/posts/<int:pk>/edit/', views.post_edit, name = 'post_edit'),
     path('new_book/', views.BookView.as_view(), name='new_book'),
+    # path('/posts/<int:pk>/edit/', views.post_edit, name = 'post_edit'),
     path('thankyou/', views.thankyou, name='thankyou'),
     path('post_create/', views.postview, name='post_create'),
     path('<int:post_id>/edit/', views.post_edit, name = 'posts_edit'),
@@ -46,5 +46,4 @@ if settings.DEBUG:
     )
 if settings.DEBUG:
     import debug_toolbar
-
     urlpatterns += (path('__debug__/', include(debug_toolbar.urls)),) 

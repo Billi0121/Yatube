@@ -17,7 +17,7 @@
             <img class="card-img my-2" src="{{ post.post_image.url }}">
         {% endthumbnail %}
       <p style="margin-top: 10px;">
-        <a href="@{{ post.author.username }}">@{{ post.author.username }}</a><br>
+        <a href="{% url post.id '%}">@{{ post.author.username }}</a><br>
         {{ post.text }}
       </p>
 
