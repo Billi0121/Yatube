@@ -162,3 +162,34 @@ def delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return render(request, 'posts/index.html', )
+
+#API
+#API
+#API
+#API
+#API
+#API
+
+
+from rest_framework.decorators import api_view
+from rest_framework import status
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework import generics
+
+
+@api_view(['POST', 'GET'])
+def post_api(request):
+    if request.method == 'POST':
+        serializers = PostSerializers(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data,)
+        return Response(serializers.errors)
+    post = Post.objects.all()
+    serializers = PostSerializers(post, many=True)
+    return Response(serializers.data)
+
+
+RetrieveUpdateDestroyAPIView
+ListCreateAPIView
