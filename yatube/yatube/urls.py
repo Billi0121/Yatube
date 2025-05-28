@@ -39,7 +39,7 @@ urlpatterns = [
     path('<int:pk>/post_detail/', views.post_detail, name='post_detail'),
     path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
     # path('delete/<int:pk>/', views.delete, name='delete')
-    path('api/v1/posts/' ,views.post_api)
+    path('api/v1/posts/' , views.post_api)
     ]
 handler404='core.views.page_not_found'
 if settings.DEBUG:
