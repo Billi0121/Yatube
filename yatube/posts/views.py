@@ -157,3 +157,8 @@ def add_comment(request, post_id):
         'post': post
     }
     return render(request, 'posts/addcomment.html', context)
+
+def delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return render(request, 'posts/index.html', )
