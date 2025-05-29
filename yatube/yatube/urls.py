@@ -19,8 +19,13 @@ from django.urls import path, include
 from posts import views
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+router.register('posts', views.PostViewSet)
 
 urlpatterns = [
+    path('api/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
     # path('/', views.index, name = 'index'),
@@ -39,7 +44,8 @@ urlpatterns = [
     path('<int:pk>/post_detail/', views.post_detail, name='post_detail'),
     path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
     # path('delete/<int:pk>/', views.delete, name='delete')
-    path('api/v1/posts/' , views.post_api)
+    # path('api/v1/posts/' , views.post_api.as_view()),
+    # path('api/v1/posts/<int:pk>/', views.post_api_edit.as_view())
     ]
 handler404='core.views.page_not_found'
 if settings.DEBUG:

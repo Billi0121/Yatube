@@ -157,7 +157,6 @@ def add_comment(request, post_id):
         'post': post
     }
     return render(request, 'posts/addcomment.html', context)
-
 def delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
@@ -176,21 +175,20 @@ from rest_framework import status
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework import viewsets
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializers
 
 
-@api_view(['POST', 'GET'])
-def post_api(request):
-    if request.method == 'POST':
-        serializers = PostSerializers(data=request.data)
-        if serializers.is_valid():
-            serializers.save()
-            return Response(serializers.data,)
-        return Response(serializers.errors)
-    post = Post.objects.all()
-    serializers = PostSerializers(post, many=True)
-    return Response(serializers.data)
+# class post_api(generics.ListCreateAPIView):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializers
 
+# class post_api_edit(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializers
 
-RetrieveUpdateDestroyAPIView
-ListCreateAPIView
 #Tnasfering
+
