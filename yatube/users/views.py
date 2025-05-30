@@ -8,6 +8,9 @@ from django.shortcuts import redirect
 
 
 
+def page_not_found(request, exception):
+    return render(request, 'users/signup.html')
+
 def logout_view(request):
     logout(request)
     return redirect('users:login')

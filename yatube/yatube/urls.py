@@ -19,10 +19,11 @@ from django.urls import path, include
 from posts import views
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework.routers import SimpleRouter
+from rest_framework.routers import SimpleRouter, DefaultRouter
+from posts.views import *
 
-router = SimpleRouter()
-router.register('posts', views.PostViewSet)
+router = DefaultRouter()
+router.register('posts', PostViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
@@ -47,7 +48,7 @@ urlpatterns = [
     # path('api/v1/posts/' , views.post_api.as_view()),
     # path('api/v1/posts/<int:pk>/', views.post_api_edit.as_view())
     ]
-handler404='core.views.page_not_found'
+handler404='users.views.page_not_found'
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT

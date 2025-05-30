@@ -12,6 +12,17 @@ from django.urls import reverse_lazy
 from django.views.decorators.cache import cache_page
 
 
+from rest_framework.decorators import api_view
+from rest_framework import status
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework import generics
+from rest_framework import viewsets
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializers
+
 
 
 def authorized_only(func):
@@ -22,7 +33,7 @@ def authorized_only(func):
         return redirect('/auth/login/')        
     return check_user
 
-@cache_page(60)
+# @cache_page(60)
 @authorized_only
 def index(request):
     """Menu"""
@@ -157,6 +168,7 @@ def add_comment(request, post_id):
         'post': post
     }
     return render(request, 'posts/addcomment.html', context)
+
 def delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
@@ -169,17 +181,6 @@ def delete(request, pk):
 #API
 #API
 
-
-from rest_framework.decorators import api_view
-from rest_framework import status
-from .serializers import *
-from rest_framework.response import Response
-from rest_framework import generics
-from rest_framework import viewsets
-
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializers
 
 
 # class post_api(generics.ListCreateAPIView):
