@@ -8,10 +8,11 @@ User = get_user_model()
 
 
 class Tag(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=15)
 
     def __str__(self):
         return self.name
+
 # Create your models here.
 class Post(models.Model):
     text = models.TextField()
@@ -36,14 +37,14 @@ class Post(models.Model):
         null=True    
     )
 
-    tagpost = models.ManyToManyField(Tag, through='PostTag')
+    tag = models.ManyToManyField(Tag, through='PostTag')
 
     def __str__(self):
         return self.text
 
 class PostTag(models.Model):
-    tag = models.ForeignKey(Tag, on_dleete=models.CASCADE)
-    post = models.ForiegnKey(Post, on_delete=models.CASCADE)
+    tags = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 class comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
