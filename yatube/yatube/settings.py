@@ -30,8 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'www.billibi.pythonanywhere.com',
-    'billibi.pythonanywhere.com',
+    'www.BilliBi1.pythonanywhere.com',
+    'BilliBi1.pythonanywhere.com',
 ]
 
 

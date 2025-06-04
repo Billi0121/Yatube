@@ -12,16 +12,6 @@ from django.urls import reverse_lazy
 from django.views.decorators.cache import cache_page
 
 
-from rest_framework.decorators import api_view
-from rest_framework import status
-from .serializers import *
-from rest_framework.response import Response
-from rest_framework import generics
-from rest_framework import viewsets
-
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializers
 
 
 
@@ -186,3 +176,20 @@ def delete(request, pk):
 
 #Tnasfering
 
+from rest_framework.decorators import api_view
+from rest_framework import status
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.decorators import action
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializers
+
+    @action(detail=False, url_path='BG')
+    def bg(self, request):
+        post = Post.objects.get(id=3)
+        serializer = self.get_serializer(post)
+        return Response(serializer.data)
