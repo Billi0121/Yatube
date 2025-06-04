@@ -33,7 +33,7 @@ def authorized_only(func):
         return redirect('/auth/login/')        
     return check_user
 
-# @cache_page(60)
+@cache_page(10)
 @authorized_only
 def index(request):
     """Menu"""
@@ -96,7 +96,8 @@ def postview(request):
     user = User.objects.all()
     form = PostForm(request.POST or None)
     if form.is_valid():
-        # user.username = request.author
+        # fix it
+        # form.author = request.user 
         form.save()
     return render(request, 'posts/post.html', {'form': form})
 
@@ -167,20 +168,12 @@ def add_comment(request, post_id):
         'form': form,
         'post': post
     }
-    return render(request, 'posts/addcomment.html', context)
+    return render(request, 'posts/post_detail.html', context)
 
 def delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return render(request, 'posts/index.html', )
-
-#API
-#API
-#API
-#API
-#API
-#API
-
 
 
 # class post_api(generics.ListCreateAPIView):

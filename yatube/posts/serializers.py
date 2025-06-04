@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+import datetime
 
 
 class TagSerializers(serializers.ModelSerializer):
@@ -9,15 +10,20 @@ class TagSerializers(serializers.ModelSerializer):
 
 
 class PostSerializers(serializers.ModelSerializer):
+    tag = TagSerializers(many=True)
+    character_quantity = serializers.SerializerMethodField()
+    publication_date = serializers.DateTimeField(source='pub_date', read_only=True)
     group = serializers.SlugRelatedField(
         queryset=group.objects.all(),
         slug_field='slug',
         required=False,
     )
-    tag = TagSerializers(many=True)
     class Meta:
         model = Post
-        fields = ('text', 'author', 'post_image', 'group', 'tag')
+        fields = ('text', 'author', 'post_image', 'group', 'tag','character_quantity', 'publication_date')
+
+    def get_character_quantity(self, obj):
+        return len(obj.text)
 
     def create(self, validated_data):
         if 'tag' not in self.initial_data:
