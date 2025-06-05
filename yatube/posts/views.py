@@ -86,10 +86,24 @@ def postview(request):
     user = User.objects.all()
     form = PostForm(request.POST or None)
     if form.is_valid():
-        # fix it
-        # form.author = request.user 
+        Post.author = request.user 
         form.save()
     return render(request, 'posts/post.html', {'form': form})
+
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = post
+        comment.save()
+        return redirect('post_detail', pk=post_id)
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, 'posts/post_detail.html', context)
 
 def post_edit(request, post_id):
     """Editing Post"""
@@ -145,20 +159,7 @@ def post_detail(request, pk):
     }
     return render(request, 'posts/post_detail.html', context)
 
-def add_comment(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    form = CommentForm(request.POST or None)
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.author = request.user
-        comment.post = post
-        comment.save()
-        return redirect('post_detail', pk=post_id)
-    context = {
-        'form': form,
-        'post': post
-    }
-    return render(request, 'posts/post_detail.html', context)
+
 
 def delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
