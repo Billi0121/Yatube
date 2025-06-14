@@ -31,7 +31,7 @@
       {% if request.user == post.author %}
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
           <a href="{% url 'posts_edit' post.id %}">Edit</a>
-          <a href="#" style="color: red; font-weight: bold;">Delete</a>
+          <a href="{% url 'delete' post.id %}" style="color: red; font-weight: bold;">Delete</a>
         </div>
       {% endif %}
     </div>

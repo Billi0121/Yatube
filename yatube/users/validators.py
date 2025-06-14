@@ -1,3 +1,5 @@
+from django import forms
+
 def validate_not_empty(name):
     if name == '':
         raise forms.ValidationError(

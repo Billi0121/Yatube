@@ -25,7 +25,6 @@ class Book_table(admin.ModelAdmin):
 
 admin.site.register(Contact)
 # admin.site.register(Users)
-admin.site.register(Book, Book_table)
 admin.site.register(group)
 admin.site.register(Post, Post_table)
 admin.site.register(comment)

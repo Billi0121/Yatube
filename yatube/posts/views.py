@@ -23,7 +23,7 @@ def authorized_only(func):
         return redirect('/auth/login/')        
     return check_user
 
-@cache_page(10)
+# @cache_page(10)
 @authorized_only
 def index(request):
     """Menu"""
@@ -57,11 +57,6 @@ def thankyou(request):
     """After Adding or Else Showing success Not to need it now"""
     return render(request, 'posts/thankyou.html')
 
-class BookView(CreateView):
-    """I created Him just for a Test""" 
-    form_class = BookForm
-    template_name = 'posts/books.html'  
-    success_url = '/thankyou/' 
 
 @authorized_only
 def group_post(request, slug):
@@ -83,11 +78,12 @@ def group_post(request, slug):
 
 def postview(request):
     """Creating Post"""
-    user = User.objects.all()
     form = PostForm(request.POST or None)
     if form.is_valid():
-        Post.author = request.user 
+        Post = form.save(commit=False)
+        Post.author = request.user
         form.save()
+        return redirect('index')
     return render(request, 'posts/post.html', {'form': form})
 
 def add_comment(request, post_id):
@@ -160,12 +156,13 @@ def post_detail(request, pk):
     return render(request, 'posts/post_detail.html', context)
 
 
-
+@authorized_only
 def delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    post.delete()
-    return render(request, 'posts/index.html', )
-
+    if request.user == Post.author:
+        post = get_object_or_404(Post, pk=pk)
+        post.delete()
+        return render(request, 'posts/index.html', )
+    return redirect('post_detail', pk=pk)
 
 # class post_api(generics.ListCreateAPIView):
 #     queryset = Post.objects.all()
@@ -177,20 +174,47 @@ def delete(request, pk):
 
 #Tnasfering
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework import status
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework import permissions, throttling
+from .permissions import *
+from .throttling import *
+from rest_framework.throttling import ScopedRateThrottle
+from .pagination import *
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializers
+    permission_classes = (AuthorOrReadOnly,)
+    throttle_classes = (LunchBrakeThrolling, ScopedRateThrottle)
+    throttle_scope = 'low_request'
+    pagination_class = CustomPagination
 
-    @action(detail=False, url_path='BG')
-    def bg(self, request):
-        post = Post.objects.get(id=3)
-        serializer = self.get_serializer(post)
-        return Response(serializer.data)
+    @action(detail=False, url_path='white-cats')
+    def white_cat(self, request):
+        new = Post.objects.filter(author=2)
+        return Response(new)
+
+    def perform_create(self, serializers):
+        return serializers.save(author=self.request.user)
+    
+    def get_permissions(self):
+        if self.action == 'retrieve':
+            return (ReadOnly(),)
+        else:
+            return super().get_permissions()
+        
+    # @action(detail=False, url_path='BG')
+    # def bg(self, request):
+    #     post = Post.objects.get(id=3)
+    #     serializer = self.get_serializer(post)
+    #     return Response(serializer.data)
+
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = group.objects.all()
+    serializer_class = GroupSerializers

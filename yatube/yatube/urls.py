@@ -24,6 +24,7 @@ from posts.views import *
 
 router = DefaultRouter()
 router.register('posts', PostViewSet)
+router.register('group', GroupViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
@@ -35,8 +36,9 @@ urlpatterns = [
     path('author/<str:username>/', views.user_profile, name = 'user_profile'),
     path('group/<slug>/', views.group_post, name = 'group_post'),
     path('auth/', include('users.urls', namespace='users')),
+    path('auth/v1/', include('djoser.urls')),
+    path('auth/v1/', include('djoser.urls.jwt')),
     # path('auth/', include('django.contrib.auth.urls')),
-    path('new_book/', views.BookView.as_view(), name='new_book'),
     # path('/posts/<int:pk>/edit/', views.post_edit, name = 'post_edit'),
     path('thankyou/', views.thankyou, name='thankyou'),
     path('<int:post_id>/edit/', views.post_edit, name = 'posts_edit'),
@@ -44,7 +46,7 @@ urlpatterns = [
     path('<int:pk>/posts/', views.users_post, name='users_post'),
     path('<int:pk>/post_detail/', views.post_detail, name='post_detail'),
     path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
-    # path('delete/<int:pk>/', views.delete, name='delete')
+    path('post/<int:pk>/delete/', views.delete, name='delete'),
     # path('api/v1/posts/' , views.post_api.as_view()),
     # path('api/v1/posts/<int:pk>/', views.post_api_edit.as_view())
     ]

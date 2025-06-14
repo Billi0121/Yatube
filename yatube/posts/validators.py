@@ -1,3 +1,5 @@
+from django import forms
+
 def validate_not_empty(title):
     # Проверка "а заполнено ли поле?"
     if title == '':
