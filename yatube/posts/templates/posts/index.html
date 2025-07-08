@@ -61,16 +61,27 @@
     {% block content %}
       {% for post in page_obj %}
         <article class="bg-white p-4 rounded-xl shadow-sm mb-6">
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-semibold">{{ post.author.get_full_name }}</span>
-            <span class="text-gray-500 text-sm">{{ post.pub_date }}</span>
+          <div class="flex gap-4">
+            {% if post.post_image %}
+              <img src="{{ post.post_image.url }}" 
+                  alt="Post Image" 
+                  class="w-40 h-40 object-cover rounded-xl flex-shrink-0" />
+            {% endif %}
+            
+            <div class="flex flex-col justify-between grow">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-semibold">{{ post.author.get_full_name }}</span>
+                <span class="text-gray-500 text-sm">{{ post.pub_date }}</span>
+              </div>
+              <p class="text-lg font-semibold text-gray-900 mb-2">{{ post.title }}</p>
+              <div>
+                {% if post.author.id == user.id %}
+                  <a href="{{ post.id }}/edit/" class="text-blue-600 hover:underline">Edit post</a> |
+                {% endif %}
+                <a href="{{ post.id }}/post_detail/" class="text-blue-600 hover:underline">Detail</a>
+              </div>
+            </div>
           </div>
-          <p class="text-gray-800">{{ post.text }}</p>
-          {% if post.author.id == user.id %}
-            <a href="{{ post.id }}/edit/">Edit post</a>
-            |
-          {% endif %}
-          <a href="{{ post.id }}/post_detail/">Detail</a>
         </article>
       {% empty %}
         <p>No posts available.</p>  

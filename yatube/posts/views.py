@@ -78,13 +78,29 @@ def group_post(request, slug):
 
 def postview(request):
     """Creating Post"""
-    form = PostForm(request.POST or None)
+    form = PostForm(
+        request.POST or None,
+        files=request.FILES or None,)
     if form.is_valid():
         Post = form.save(commit=False)
         Post.author = request.user
         form.save()
         return redirect('index')
     return render(request, 'posts/post.html', {'form': form})
+
+def following(request, username):
+    user = User.objects.get(username=username)
+    form = FollowersForm(request.POST or None)
+    if form.is_valid():
+        form =  form.save(commit=False)
+        Followers.user = user   
+        Followers.following = request.user
+        form.save()
+    context = {
+        'form': form
+    }
+    return render(request, 'posts/index.html', context)
+
 
 def add_comment(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -122,13 +138,13 @@ def post_edit(request, post_id):
     }
     return render(request, 'posts/post.html', context) 
 
-
 @authorized_only
 def user_profile(request, username):
     """Show users Name in a main"""
     user_name = get_object_or_404(User, username=username)
     context = {
-        'user_name': user_name
+        'user_name': user_name,
+        # 'post': post
     }
     return render(request, 'posts/user_profile.html', context)
 
@@ -186,6 +202,7 @@ from .permissions import *
 from .throttling import *
 from rest_framework.throttling import ScopedRateThrottle
 from .pagination import *
+from rest_framework import filters
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -193,12 +210,16 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = (AuthorOrReadOnly,)
     throttle_classes = (LunchBrakeThrolling, ScopedRateThrottle)
     throttle_scope = 'low_request'
-    pagination_class = CustomPagination
+    pagination_class = None
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('$text',)# Regex $ learn in documentation later
 
-    @action(detail=False, url_path='white-cats')
-    def white_cat(self, request):
-        new = Post.objects.filter(author=2)
-        return Response(new)
+
+    # @action(detail=False, url_path='white-cats')
+    # def white_cat(self, request):
+    #     new = Post.objects.filter(author=2)
+    #     serializer = self.get_serializer(new)
+    #     return Response(serializer.data)
 
     def perform_create(self, serializers):
         return serializers.save(author=self.request.user)

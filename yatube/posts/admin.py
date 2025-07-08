@@ -5,6 +5,7 @@ from posts.models import *
 class Post_table(admin.ModelAdmin):
     list_display = (
         'pk',
+        'title',
         'text',
         'pub_date',
         'author',
@@ -24,9 +25,9 @@ class Book_table(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 admin.site.register(Contact)
-# admin.site.register(Users)
 admin.site.register(group)
 admin.site.register(Post, Post_table)
 admin.site.register(comment)
 admin.site.register(Tag)
 admin.site.register(PostTag)
+admin.site.register(Followers)

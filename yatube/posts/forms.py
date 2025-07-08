@@ -17,9 +17,14 @@ class ContactForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['text', 'group', 'post_image']
+        fields = ['title', 'text', 'group', 'post_image']
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = comment
         fields = ['text']
+
+class FollowersForm(forms.ModelForm):
+    class Meta:
+        model = Followers
+        fields = ['user', 'following']
