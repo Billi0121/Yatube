@@ -187,9 +187,8 @@ def delete(request, pk):
 # class post_api_edit(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = Post.objects.all()
 #     serializer_class = PostSerializers
-
 #Tnasfering
-
+# Hello
 from rest_framework.decorators import api_view, action
 from rest_framework import status
 from .serializers import *
