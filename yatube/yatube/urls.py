@@ -47,7 +47,7 @@ urlpatterns = [
     path('<int:pk>/posts/', views.users_post, name='users_post'),
     path('<int:pk>/post_detail/', views.post_detail, name='post_detail'),
     path('posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
-    path('post/<int:pk>/delete/', views.delete, name='delete'),
+    path('delete/<int:pk>/', views.delete, name='delete'),
     # path('api/v1/posts/' , views.post_api.as_view()),
     # path('api/v1/posts/<int:pk>/', views.post_api_edit.as_view())
     ]

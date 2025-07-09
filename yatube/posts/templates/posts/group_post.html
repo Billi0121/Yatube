@@ -2,18 +2,66 @@
 
 {% block content %}
 {% for post in obj %}
-<article class="bg-white p-4 rounded-xl shadow-sm mb-6">
-  <div class="flex justify-between items-center mb-2">
-    <span class="font-semibold">{{ post.author.get_full_name }}</span>
-    <span class="text-gray-500 text-sm">{{ post.pub_date }}</span>
-  </div>
-  <p class="text-gray-800">{{ post.text }}</p>
-{% if post.author.id == user.id %}
-  <a href="{{ post.id }}/edit/">Edit post</a>
-{% endif %}
-</article>
-{% empty %}
-<p>No posts available.</p>
-{% endfor %}
+        <article class="bg-white p-4 rounded-xl shadow-sm mb-6">
+          <div class="flex gap-4">
+            {% if post.post_image %}
+              <img src="{{ post.post_image.url }}" 
+                  alt="Post Image" 
+                  class="w-40 h-40 object-cover rounded-xl flex-shrink-0" />
+            {% endif %}
+            
+            <div class="flex flex-col justify-between grow">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-semibold">{{ post.author.get_full_name }}</span>
+                <span class="text-gray-500 text-sm">{{ post.pub_date }}</span>
+              </div>
+              <p class="text-lg font-semibold text-gray-900 mb-2">{{ post.title }}</p>
+              <div>
+                {% if post.author.id == user.id %}
+                  <a href="{% url 'posts_edit' post.id %}" class="text-blue-600 hover:underline">Edit post</a> |
+                {% endif %}
+                <a href="{% url 'post_detail' post.id %}" class="text-blue-600 hover:underline">Detail</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <p>No posts available.</p>  
+      {% endfor %}
+      {% if page_obj.has_other_pages %}
+      <nav aria-label="Page navigation" class="flex justify-center mt-6">
+        <ul class="inline-flex items-center -space-x-px text-sm">
+          {% if page_obj.has_previous %}
+            <li>
+              <a href="?page=1" class="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">« Первая</a>
+            </li>
+            <li>
+              <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">‹ Предыдущая</a>
+            </li>
+          {% endif %}
+
+          {% for i in page_obj.paginator.page_range %}
+            {% if i == page_obj.number %}
+              <li>
+                <span class="px-3 py-2 leading-tight text-white bg-red-400 border border-gray-300">{{ i }}</span>
+              </li>
+            {% elif i >= page_obj.number|add:"-2" and i <= page_obj.number|add:"2" %}
+              <li>
+                <a href="?page={{ i }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">{{ i }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li>
+              <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">Следующая ›</a>
+            </li>
+            <li>
+              <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">Последняя »</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
 
 {% endblock %}
