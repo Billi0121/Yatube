@@ -174,11 +174,11 @@ def post_detail(request, pk):
 
 @authorized_only
 def delete(request, pk):
-    if request.user == Post.author:
-        post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk)
+    if request.user == post.author:
         post.delete()
-        return render(request, 'posts/index.html', )
-    return redirect('post_detail', pk=pk)
+    return redirect('index')
+    return render(request, 'posts/delete.html')
 
 # class post_api(generics.ListCreateAPIView):
 #     queryset = Post.objects.all()
