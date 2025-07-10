@@ -34,8 +34,8 @@
         <a href="{% url 'index' %}" class="flex items-center gap-1.5 text-sm hover:text-red-500"><i class="fa-solid fa-home"></i>Home</a>
         <a href="/{{ user.id }}/posts/" class="flex items-center gap-1.5 text-sm hover:text-red-500"><i class="fa-solid fa-fire"></i>My posts</a>
       </div>
-      {% load cache %}
-      {% cache 20 Tags %}
+      {% comment %} {% load cache %} {% endcomment %}
+      {% comment %} {% cache 20 Tags %} {% endcomment %}
         <h1 class="text-xl text-left font-bold mb-4 mt-6">Tags</h1>
         <div class="flex flex-col gap-2.5 text-left text-sm">
           <a href="{% url 'group_post' slug='WorldCup' %}" class="flex items-center gap-3 transition-all duration-300 px-2 py-1 rounded-sm hover:bg-gray-100">
@@ -51,7 +51,7 @@
             <img src="{% static 'posts/img/national_league.png' %}" alt="National League" class="w-7 h-7 object-contain"/> National League
           </a>
         </div>
-    {% endcache %}
+    {% comment %} {% endcache %} {% endcomment %}
 
 
 

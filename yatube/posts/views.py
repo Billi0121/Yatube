@@ -78,15 +78,15 @@ def group_post(request, slug):
 
 def postview(request):
     """Creating Post"""
-    form = PostForm(
+    form_post = PostForm(
         request.POST or None,
         files=request.FILES or None,)
-    if form.is_valid():
-        Post = form.save(commit=False)
+    if form_post.is_valid():
+        Post = form_post.save(commit=False)
         Post.author = request.user
-        form.save()
+        form_post.save()
         return redirect('index')
-    return render(request, 'posts/post.html', {'form': form})
+    return render(request, 'posts/post.html', {'form': form_post})
 
 def following(request, username):
     user = User.objects.get(username=username)
