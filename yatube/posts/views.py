@@ -156,9 +156,9 @@ def users_post(request, pk):
     page_count = request.GET.get('page')
     result_paginator = paginator.get_page(page_count)
     context = {
-        'page_obj': result_paginator
+        'obj': result_paginator
     }
-    return render(request, 'posts/user_posts.html', context)
+    return render(request, 'posts/group_post.html', context)
 
 @authorized_only
 def post_detail(request, pk):
