@@ -30,6 +30,7 @@ SECRET_KEY = 'django-insecure-=vaa5&#v90qymre8@=jstc0(gs_3(p^5l*8@bs88qz+sebz%v@
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     '127.0.0.1',
     'www.BilliBi1.pythonanywhere.com',
     'BilliBi1.pythonanywhere.com',

@@ -24,8 +24,8 @@
   <!-- Правая панель контента -->
   <div style="flex: 1;">
     <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
-        {% thumbnail post.post_image "960x339"   crop="center" upscale=True as im %}
-            <img class="card-img my-2" src="{{ post.post_image.url }}">
+        {% thumbnail post.post_image "700x700" crop="center" quality=100 as im  %}
+            <img src="{{ post.post_image.url }}" width="{{ im.width }}" height="{{ im.height }}">
         {% endthumbnail %}
         <!-- Кнопка "Подписаться" -->
       <p style="margin-top: 10px;">

@@ -51,7 +51,7 @@ urlpatterns = [
     # path('api/v1/posts/' , views.post_api.as_view()),
     # path('api/v1/posts/<int:pk>/', views.post_api_edit.as_view())
     ]
-handler404='users.views.page_not_found'
+# handler404='users.views.page_not_found'
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
