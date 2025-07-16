@@ -1,0 +1,87 @@
+{% if user.is_authenticated %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BilliBi</title>
+  <link rel="stylesheet" href="{% static 'posts/css/index.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+  <header id="mainHeader">
+    <div id="headerLeft">
+      <a href="{% url 'index' %}"><h1 id="logo"><span>Billi</span>Bi</h1></a>
+      <strong>Author of this site: {{ Me }}</strong>
+    </div>
+
+    <div id="headerRight">
+      {% if user.is_authenticated %}
+        <a href="{% url 'users:password_change_form' %}">Change Password</a>
+      {% else %}
+        <a href="{% url 'users:login' %}">Login</a>
+        <a href="{% url 'users:signup' %}">Sign Up</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div id="mainWrapper">
+    <aside id="sidebar">
+      <h1 class="sidebar-title">Navigation</h1>
+      <div class="sidebar-links">
+        <a href="{% url 'index' %}"><i class="fa-solid fa-home"></i> Home</a>
+        <a href="#"><i class="fa-solid fa-fire"></i> Popular</a>
+      </div>
+
+      <h1 class="sidebar-title">Tags</h1>
+      <div class="tag-links">
+        <a href="{% url 'group_post' slug='WorldCup' %}">
+          <img src="{% static 'posts/img/wrldcup.png' %}" alt="World Cup"/> World Cup
+        </a>
+        <a href="{% url 'group_post' slug='UEFA' %}">
+          <img src="{% static 'posts/img/uefa.png' %}" alt="UEFA"/> UEFA
+        </a>
+        <a href="{% url 'group_post' slug='Europe' %}">
+          <img src="{% static 'posts/img/europe.png' %}" alt="Europe"/> Europe
+        </a>
+        <a href="{% url 'group_post' slug='NationalLeague' %}">
+          <img src="{% static 'posts/img/national_league.png' %}" alt="National League"/> National League
+        </a>
+      </div>
+    </aside>
+
+    <main id="mainContent">
+      {% block technology %}
+      <div class="postCard">
+        <img src="{% static 'about/img/logo2.png' %}" width="120" height="120" alt="Me" class="postImg" style="display:block; margin: 0 auto;">
+        <h2 class="title" style="text-align: center;">Gafarov Bilol</h2>
+
+        <div class="postInfo" style="text-align: center;">
+          <p class="subtitle">Social Networks {{ Hello }}</p>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <a href="https://github.com/Billi0121"><i class="fa-brands fa-github"></i> Github</a>
+            <a href="https://t.me/bilolj182"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <a href="https://Instagram.com/_.gafarov._1"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          </div>
+        </div>
+
+        <p class="postText" style="text-align: justify;">
+          Hello Everyone, my name is Bilol Gafarov. I am teenager from California and I am beginner <strong>BACKEND Programmer!</strong><br><br>
+          Technology — building, inventing, creating. I dream about creating something huge, like Instagram or YouTube. I live in a beautiful country. I chose this path because I love everything related to tech.<br><br>
+          Programming is my passion. People like Mark Zuckerberg inspire me. Watching the film "The Social Network" showed me how powerful one idea can become! Also, TikTok edits inspired me too. I came here when I was 14 years old. I was interested in programming but didn’t take it seriously, played games, and now I realize I wasted time. Now, I'm improving every day!<br><br>
+          I like that coding connects with technology. I’ve watched many <strong>cyberstalker</strong> films, and they inspired me. Technology moves forward — and so do I. 
+        </p>
+      </div>
+      {% endblock %}
+    </main>
+  </div>
+
+  <a href="{% url 'post_create' %}" id="postButton">
+    <i class="fa-solid fa-plus"></i> POST
+  </a>
+</body>
+</html>
+{% else %}
+<a href="{% url 'users:login' %}">Login</a>
+{% endif %}

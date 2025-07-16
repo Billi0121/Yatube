@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head>    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="{% static 'users/img/fav/fav.ico' %}" type="image">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'users/img/fav/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'users/img/fav/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'users/img/fav/favicon-16x16.png' %}">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>REGISTRATIONS</title>
+</head>
+<link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+<body>
+  <main class="container">
+    <div class="card">
+      <h1 class="logo"><span class="logo-red">Billi</span><span class="logo-black">Bi</span></h1>
+      <h2 class="title">Зарегистрироваться</h2>
+
+      <form method="post" action="{% url 'users:signup' %}">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">
+              {{ field.label }}
+              {% if field.field.required %}<span class="required">*</span>{% endif %}
+            </label>
+            <input type="{{ field.field.widget.input_type }}"
+                   name="{{ field.name }}"
+                   id="{{ field.id_for_label }}"
+                   value="{{ field.value|default_if_none:'' }}"
+                   class="input">
+            {% if field.errors %}
+              {% for error in field.errors %}
+                <div class="error">{{ error }}</div>
+              {% endfor %}
+            {% endif %}
+            {% if field.help_text %}
+              <small class="help">{{ field.help_text|safe }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+          <div class="error">
+            {% for error in form.non_field_errors %}
+              <div>{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <button type="submit" class="submit-btn">Зарегистрироваться</button>
+      </form>
+
+      <div class="login-link">
+        Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2021 Copyright <span style="color:red">Billi</span>Bi</p>    
+  </footer>
+
+</body>
+</html>

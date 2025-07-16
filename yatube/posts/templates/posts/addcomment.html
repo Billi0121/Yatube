@@ -1,0 +1,12 @@
+<form method="post" action="{% url 'add_comment' post.id %}">
+        {% csrf_token %}      
+        <div class="form-group mb-2">
+          {{ form.as_p }}
+          {% if form.errors %}
+            {% for forms in form.errors %}
+                {{ forms.errors }}
+            {% endfor %}
+          {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+</form>

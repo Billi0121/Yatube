@@ -1,0 +1,87 @@
+{% extends 'posts/index.html' %}
+{% load thumbnail %}
+{% block content %}
+<div class="container" style="display: flex; margin-top: 20px;">
+  <!-- Левая панель профиля -->
+  <div style="width: 200px; margin-right: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+    <h3><a href="{% url 'user_profile' post.author.username %}">@{{ post.author }}<a/></h3> 
+    <p>Подписчиков: XXX</p>
+    <p>Подписан: XXX</p>
+    <p>Записей: {{ post_count }}</p>
+  </div>
+
+  <!-- Правая панель контента -->
+  <div style="flex: 1;">
+    <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+        {% thumbnail post.post_image "700x700" crop="center" quality=100 as im  %}
+            <img src="{{ post.post_image.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+        <!-- Кнопка "Подписаться" -->
+      <p style="margin-top: 10px;">
+        <a href="{% url 'user_profile' post.author.username %}">@{{ post.author.username }}</a><br>
+        {{ post.text }}
+      </p>
+
+      {% if post.group %}
+        <p>Group: {{ post.group.title }}</p>
+      {% endif %}
+
+      <p style="color: gray; font-size: 0.9em;">
+        {{ post.pub_date|date:"d E Y г. H:i" }}
+      </p>
+      {% if request.user == post.author %}
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <a href="{% url 'posts_edit' post.id %}">Edit</a>
+          <a href="{% url 'delete' post.id %}" style="color: red; font-weight: bold;">Delete</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="Comment" style="margin-top: 30px; padding: 25px; background-color: #fdfdfd; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+  <h2 style="margin-bottom: 20px; font-size: 1.5em; border-bottom: 2px solid #eee; padding-bottom: 10px; color: #333;">comments</h2>
+  
+{% if user.is_authenticated %}
+  <div class="card my-4">
+    <h5 class="card-header">Смотреть комментарии :</h5>
+    <div class="card-body">
+      <form method="post" action="{% url 'post_detail' post.id %}">
+        {% csrf_token %}
+        {{ form.text }} 
+        {% comment %} <div class="form-group mb-2">
+        </div> {% endcomment %}
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
+
+  {% for comment in comments %}
+    <div class="media" style="padding: 15px 0; border-bottom: 1px solid #e5e5e5;">
+      <div class="media-body">
+        <h5 style="margin: 0 0 5px; font-size: 1em; color: #0073e6;">
+          <a href="#" style="text-decoration: none; color: inherit;">
+            {{ comment.author.username }}
+          </a>
+          <span style="color: #999; font-size: 0.85em; margin-left: 8px;">
+            {{ comment.created|date:"d.m.Y H:i" }}
+          </span>
+        </h5>
+        <p style="margin: 0; color: #444;">{{ comment.text }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p style="color: #888;">Пока нет комментариев. Будьте первым!</p>
+  {% endfor %}
+</div>
+
+
+</div>
+<!-- Футер -->
+<footer style="margin-top: 40px; text-align: center;">
+  <a href="">Об авторе сайта</a> -
+  <a href="">Технологии</a><br>
+  Социальная сеть <span style="color: red;">Billi</span>Bi
+</footer>
+
+{% endblock %}

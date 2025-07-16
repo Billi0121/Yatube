@@ -1,0 +1,28 @@
+{% extends "posts/index.html" %}
+
+{% block content %}
+  {{ user_name }}
+  {{ post }}
+  {% comment %} {{ user }} {% endcomment %}
+  {% comment %} {{ check }} {% endcomment %}
+{% comment %}   
+  {% if user == check.user %}
+
+  {% else %}
+      <form method='post' action="">
+        {% csrf_token %}
+        {% comment %} {{ followersform.as_p }} {% endcomment %}
+        {% comment %} <button style="
+          background-color:rgb(255, 0, 0); /* синий как в Твиттере */
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          font-size: 16px;
+                border-radius: 8px;
+                cursor: pointer;
+            ">
+              Подписаться
+            </button>
+        <form> {% endcomment %}
+  {% comment %} {% endif %} {% endcomment %}
+{% endblock %}

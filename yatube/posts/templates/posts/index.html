@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BilliBi</title>
+  <link rel="stylesheet" href="{% static 'posts/css/index.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header id="mainHeader">
+    <div id="headerLeft">
+      <a href="{% url 'index' %}"><h1 id="logo"><span>Billi</span>Bi</h1></a>
+      <h1>Username <strong>{{ user.username }}</strong></h1>
+    </div>
+
+    <div id="headerRight">
+      <strong><h1><a href="{% url 'about:me' %}">Author</a></h1></strong>
+      |
+      <a href="{% url 'users:logged_out' %}">LogOut</a>
+      |
+      <a href="{% url 'users:password_change_form' %}">Change Password</a>
+    </div>
+  </header>
+
+  <div id="mainWrapper">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <h1 class="sidebar-title">Navigation</h1>
+      <div class="sidebar-links">
+        <a href="{% url 'index' %}"><i class="fa-solid fa-home"></i>Home</a>
+        <a href="/{{ user.id }}/posts/"><i class="fa-solid fa-fire"></i>My posts {{ post_count }}</a>
+      </div>
+
+      <h1 class="sidebar-title">Tags</h1>
+      <div class="tag-links">
+        <a href="{% url 'group_post' slug='WorldCup' %}">
+          <img src="{% static 'posts/img/wrldcup.png' %}" alt="World Cup"/> World Cup
+        </a>
+        <a href="{% url 'group_post' slug='UEFA' %}">
+          <img src="{% static 'posts/img/uefa.png' %}" alt="UEFA"/> UEFA
+        </a>
+        <a href="{% url 'group_post' slug='Europe' %}">
+          <img src="{% static 'posts/img/europe.png' %}" alt="Europe"/> Europe
+        </a>
+        <a href="{% url 'group_post' slug='NationalLeague' %}">
+          <img src="{% static 'posts/img/national_league.png' %}" alt="National League"/> National League
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+    {% block content %}
+      {% for post in page_obj %}
+        <article class="postCard">
+          <div class="postInner">
+            {% if post.post_image %}
+              <img src="{{ post.post_image.url }}" alt="Post Image" class="postImg"/>
+            {% endif %}
+            
+            <div class="postInfo">
+              <div class="postTop">
+                <span class="author">{{ post.author.get_full_name }}</span>
+                <span class="date">{{ post.pub_date }}</span>
+              </div>
+              <p class="title">{{ post.title }}</p>
+              <div class="actions">
+                {% if post.author.id == user.id %}
+                  <a href="{{ post.id }}/edit/">Edit post</a> |
+                {% endif %}
+                <a href="{% url 'post_detail' post.id %}">Detail</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <p>No posts available.</p>  
+      {% endfor %}
+
+      {% if page_obj.has_other_pages %}
+      <nav class="pagination">
+        <ul>
+          {% if page_obj.has_previous %}
+            <li><a href="?page=1">« Первая</a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}">‹ Предыдущая</a></li>
+          {% endif %}
+
+          {% for i in page_obj.paginator.page_range %}
+            {% if i == page_obj.number %}
+              <li><span class="current">{{ i }}</span></li>
+            {% elif i >= page_obj.number|add:"-2" and i <= page_obj.number|add:"2" %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">Следующая ›</a></li>
+            <li><a href="?page={{ page_obj.paginator.num_pages }}">Последняя »</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    {% endblock %}
+
+    <!-- Floating Post Button -->
+    <a href="{% url 'post_create' %}" id="postButton">
+      <i class="fa-solid fa-plus"></i> POST
+    </a>
+    </main>
+  </div>
+</body>
+</html>

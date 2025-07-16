@@ -1,0 +1,55 @@
+{% load user_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>BilliBi - Вход</title>
+  <link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+</head>
+
+<body>
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+  <div class="login-container">
+
+    <div class="login-card">
+      <h1 class="logo">
+        <span class="logo-red">Billi</span><span class="logo-black">Bi</span>
+      </h1>
+
+      {% if form.errors %}
+        {% for field in form %}
+          {% for error in field.errors %}
+            <div class="error">{{ error|escape }}</div>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <div class="error">{{ error|escape }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="post" {% if action_url %} action="{% url action_url %}" {% endif %}>
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="form-group">
+            {{ field|addclass:"input" }}
+            {% if field.help_text %}
+              <small class="help-text">{{ field.help_text|safe }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">Log in</button>
+      </form>
+
+      <div class="separator"><span>OR</span></div>
+
+      <div class="links">
+        <a href="{% url 'users:signup' %}">Sign up</a>
+        <a href="{% url 'users:password_reset_form' %}">Forgot password?</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

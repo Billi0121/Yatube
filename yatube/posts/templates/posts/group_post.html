@@ -1,0 +1,55 @@
+{% extends "posts/index.html" %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'posts/css/group_post.css' %}">
+  {{ post_count }}
+  {% for post in obj %}
+    <article class="post-card">
+      <div class="post-inner">
+        {% if post.post_image %}
+          <img src="{{ post.post_image.url }}" alt="Post Image" class="post-img" />
+        {% endif %}
+        <div class="post-info">
+          <div class="post-top">
+            <span class="author-name">{{ post.author.get_full_name }}</span>
+            <span class="post-date">{{ post.pub_date }}</span>
+          </div>
+          <p class="post-title">{{ post.title }}</p>
+          <div class="actions">
+            {% if post.author.id == user.id %}
+              <a href="{% url 'posts_edit' post.id %}">Edit post</a> |
+            {% endif %}
+            <a href="{% url 'post_detail' post.id %}">Detail</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  {% empty %}
+    <p>No posts available.</p>
+  {% endfor %}
+
+  {% if page_obj.has_other_pages %}
+    <nav class="pagination">
+      <ul>
+        {% if page_obj.has_previous %}
+          <li><a href="?page=1">« Первая</a></li>
+          <li><a href="?page={{ page_obj.previous_page_number }}">‹ Предыдущая</a></li>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+          {% if i == page_obj.number %}
+            <li><span class="current">{{ i }}</span></li>
+          {% elif i >= page_obj.number|add:"-2" and i <= page_obj.number|add:"2" %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">Следующая ›</a></li>
+          <li><a href="?page={{ page_obj.paginator.num_pages }}">Последняя »</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}

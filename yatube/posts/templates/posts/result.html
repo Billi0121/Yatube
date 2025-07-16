@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Ты выбрал: {{ fruit }}</p>
+    <button type="submit">Выбрать</button>
+</form>
