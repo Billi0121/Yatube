@@ -12,6 +12,7 @@ jobs:
     # для клонирования репозитория
     - uses: actions/checkout@v2
     - name: Set up Python
+    
       # для развёртывания окружения Python#
       uses: actions/setup-python@v2
       with:
