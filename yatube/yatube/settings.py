@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [
     'www.BilliBi1.pythonanywhere.com',
     'BilliBi1.pythonanywhere.com',
 ]
-
+#Trusting
 CSRF_TRUSTED_ORIGNINS= [
     'https://35.244.55.2',
     'https://billibi.zapto.org',
