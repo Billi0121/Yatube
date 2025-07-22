@@ -32,9 +32,15 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '35.244.55.2',
     'localhost',
+    'billibi.zapto.org',
     '127.0.0.1',
     'www.BilliBi1.pythonanywhere.com',
     'BilliBi1.pythonanywhere.com',
+]
+
+CSRF_TRUSTED_ORIGNINS= [
+    'http://35.244.55.2',
+    'http://billibi.zapto.org',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
