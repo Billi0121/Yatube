@@ -14,7 +14,6 @@
       <a href="{% url 'index' %}"><h1 id="logo"><span>Billi</span>Bi</h1></a>
       <h1>Username <strong>{{ user.username }}</strong></h1>
     </div>
-
     <div id="headerRight">
       <strong><h1><a href="{% url 'about:me' %}">Author</a></h1></strong>
       |
@@ -76,7 +75,7 @@
           </div>
         </article>
       {% empty %}
-        <p>No posts available.</p>  
+        <p>No posts available....</p>  
       {% endfor %}
 
       {% if page_obj.has_other_pages %}
