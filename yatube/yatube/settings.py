@@ -39,8 +39,8 @@ ALLOWED_HOSTS = [
 ]
 #Trusting
 CSRF_TRUSTED_ORIGNINS= [
-    'https://35.244.55.2',
-    'https://billibi.zapto.org',
+    'http://35.244.55.2',
+    'http://billibi.zapto.org',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
