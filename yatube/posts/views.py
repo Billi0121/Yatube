@@ -206,6 +206,27 @@ def delete(request, pk):
     return redirect('index')
     return render(request, 'posts/delete.html')
 
+def send_complaint(request):
+    if request.method == 'POST':
+        form = ComplaintForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            full_message = f"From: {email}\n\n{message}"
+
+            send_mail(
+                subject,
+                full_message,
+                settings.DEFAULT_FROM_EMAIL,
+                ['billibi0121@gmail.com'],  # 👉 замени на свою почту
+            )
+            return render(request, 'posts/index.html')
+    else:
+        form = ComplaintForm()
+    return render(request, 'posts/complaint_form.html', {'form': form})
+
 # class post_api(generics.ListCreateAPIView):
 #     queryset = Post.objects.all()
 #     serializer_class = PostSerializers
@@ -267,24 +288,3 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 from django.core.mail import send_mail
 from django.conf import settings
-
-def send_complaint(request):
-    if request.method == 'POST':
-        form = ComplaintForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message = form.cleaned_data['message']
-
-            full_message = f"From: {email}\n\n{message}"
-
-            send_mail(
-                subject,
-                full_message,
-                settings.DEFAULT_FROM_EMAIL,
-                ['billibi0121@gmail.com'],  # 👉 замени на свою почту
-            )
-            return render(request, 'posts/index.html')
-    else:
-        form = ComplaintForm()
-    return render(request, 'posts/complaint_form.html', {'form': form})

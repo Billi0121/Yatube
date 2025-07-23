@@ -1,6 +1,6 @@
 from django.shortcuts import render
-# from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import CreateView
+# from django.views.generic.edit import CreateView, 
+from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from .forms import *
 from django.contrib.auth import logout
@@ -20,7 +20,6 @@ def admin_detail(request):
 
 def users(request):
     return render(request, 'users/logout.html')
-
 
 class SignUpView(CreateView):
         form_class = SignUpForm 

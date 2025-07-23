@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=vaa5&#v90qymre8@=jstc0(gs_3(p^5l*8@bs88qz+sebz%v@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False #False
 
 ALLOWED_HOSTS = [
     '35.244.55.2',
@@ -121,9 +121,18 @@ DATABASES = {
         'USER': os.environ.get("POSTGRES_USER"),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
         'HOST': os.environ.get("DB_HOST"),  # важно
-        'PORT': os.environ.get("DB_PORT", "5432"),    
+        'PORT': os.environ.get("DB_PORT", "5432"),  
+
     }
 }
+
+
+# 'NAME': 'mydb',
+# 'USER': 'postgres',
+# 'PASSWORD': 'lifeisok55',
+# 'HOST': '127.0.0.1',  # важно
+# 'PORT': os.environ.get("DB_PORT", "5432"), 
+
 
 # 'ENGINE': 'django.db.backends.sqlite3',###
         # 'NAME': BASE_DIR / 'sq.lite3'
