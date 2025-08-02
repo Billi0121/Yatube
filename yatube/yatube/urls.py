@@ -28,7 +28,7 @@ router.register('group', GroupViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
-    path('admin/', admin.site.urls),
+    path('917090815/', admin.site.urls),
     path('', views.index, name = 'index'),
     path('post_create/', views.postview, name='post_create'),
     # path('/', views.index, name = 'index'),
