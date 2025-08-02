@@ -33,8 +33,8 @@
     <nav class="pagination">
       <ul>
         {% if page_obj.has_previous %}
-          <li><a href="?page=1">« Первая</a></li>
-          <li><a href="?page={{ page_obj.previous_page_number }}">‹ Предыдущая</a></li>
+          <li><a href="?page=1">« First</a></li>
+          <li><a href="?page={{ page_obj.previous_page_number }}">‹ Previous</a></li>
         {% endif %}
 
         {% for i in page_obj.paginator.page_range %}
@@ -46,8 +46,8 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}">Следующая ›</a></li>
-          <li><a href="?page={{ page_obj.paginator.num_pages }}">Последняя »</a></li>
+          <li><a href="?page={{ page_obj.next_page_number }}">Next ›</a></li>
+          <li><a href="?page={{ page_obj.paginator.num_pages }}">Last »</a></li>
         {% endif %}
       </ul>
     </nav>
