@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-=vaa5&#v90qymre8@=jstc0(gs_3(p^5l*8@bs88qz+sebz%v@
 DEBUG = False #False
 
 ALLOWED_HOSTS = [
-    '35.244.55.2',
+    '35.200.135.167',
     'localhost',
     'billibi.zapto.org',
     '127.0.0.1',
@@ -39,7 +39,9 @@ ALLOWED_HOSTS = [
 ]
 #Trusting
 CSRF_TRUSTED_ORIGINS = [
-    "https://35.244.55.2",
+    "http://35.200.135.167",
+    "http://billibi.zapto.org",
+    "https://35.200.135.167",
     "https://billibi.zapto.org",
 ]
 
